@@ -1,0 +1,445 @@
+[
+  {
+    "name": "Baratin",
+    "min": 5,
+    "range": 50,
+    "orientationsIndexes": [
+      0,
+      2
+    ],
+    "isSocial": true,
+    "id": 1
+  },
+  {
+    "name": "Charme",
+    "min": 15,
+    "range": 30,
+    "orientationsIndexes": [
+      0,
+      1,
+      2
+    ],
+    "isSocial": true,
+    "id": 2
+  },
+  {
+    "name": "Intimidation",
+    "min": 15,
+    "range": 40,
+    "orientationsIndexes": [
+      0,
+      1
+    ],
+    "isSocial": true,
+    "id": 3
+  },
+  {
+    "name": "Persuasion",
+    "min": 10,
+    "range": 40,
+    "orientationsIndexes": [
+      0,
+      2
+    ],
+    "isSocial": true,
+    "id": 4
+  },
+  {
+    "name": "Psychologie",
+    "min": 15,
+    "range": 25,
+    "orientationsIndexes": [
+      0,
+      1,
+      2
+    ],
+    "isSocial": true,
+    "id": 5
+  },
+  {
+    "name": "Combat à distance - arme de poing",
+    "min": 20,
+    "range": 40,
+    "orientationsIndexes": [
+      0,
+      1,
+      2
+    ],
+    "isCombat": true,
+    "id": 6
+  },
+  {
+    "name": "Combat à distance - fusil",
+    "min": 25,
+    "range": 40,
+    "orientationsIndexes": [
+      0,
+      1,
+      2
+    ],
+    "isCombat": true,
+    "id": 7
+  },
+  {
+    "name": "Corps-à-corps",
+    "min": 25,
+    "range": 40,
+    "orientationsIndexes": [
+      0,
+      1,
+      2
+    ],
+    "isCombat": true,
+    "id": 8
+  },
+  {
+    "name": "Anthropologie",
+    "min": 1,
+    "range": 40,
+    "orientationsIndexes": [
+      0,
+      2
+    ],
+    "id": 9
+  },
+  {
+    "name": "Archéologie",
+    "min": 1,
+    "range": 30,
+    "orientationsIndexes": [
+      0,
+      2
+    ],
+    "id": 10
+  },
+  {
+    "name": "Arts et métiers",
+    "min": 5,
+    "range": 50,
+    "orientationsIndexes": [
+      0,
+      2
+    ],
+    "id": 11
+  },
+  {
+    "name": "Bibliothèque",
+    "min": 20,
+    "range": 20,
+    "orientationsIndexes": [
+      0,
+      2
+    ],
+    "id": 12
+  },
+  {
+    "name": "Comptabilité",
+    "min": 5,
+    "range": 30,
+    "orientationsIndexes": [
+      0,
+      2
+    ],
+    "id": 13
+  },
+  {
+    "name": "Conduite",
+    "min": 2,
+    "range": 40,
+    "orientationsIndexes": [
+      0,
+      1,
+      2
+    ],
+    "id": 14
+  },
+  {
+    "name": "Conduite engin lourd",
+    "min": 1,
+    "range": 40,
+    "orientationsIndexes": [
+      0,
+      1
+    ],
+    "id": 15
+  },
+  {
+    "name": "Crochetage",
+    "min": 1,
+    "range": 40,
+    "orientationsIndexes": [
+      0,
+      1
+    ],
+    "id": 16
+  },
+  {
+    "name": "Discrétion",
+    "min": 20,
+    "range": 20,
+    "orientationsIndexes": [
+      0,
+      1,
+      2
+    ],
+    "id": 17
+  },
+  {
+    "name": "Droit",
+    "min": 5,
+    "range": 40,
+    "orientationsIndexes": [
+      0,
+      2
+    ],
+    "id": 18
+  },
+  {
+    "name": "Écouter",
+    "min": 20,
+    "range": 30,
+    "orientationsIndexes": [
+      0,
+      1,
+      2
+    ],
+    "id": 19
+  },
+  {
+    "name": "Électricité",
+    "min": 10,
+    "range": 30,
+    "orientationsIndexes": [
+      0,
+      1,
+      2
+    ],
+    "id": 20
+  },
+  {
+    "name": "Équitation",
+    "min": 5,
+    "range": 20,
+    "orientationsIndexes": [
+      0,
+      2
+    ],
+    "id": 21
+  },
+  {
+    "name": "Estimation",
+    "min": 5,
+    "range": 40,
+    "orientationsIndexes": [
+      0,
+      1,
+      2
+    ],
+    "id": 22
+  },
+  {
+    "name": "Grimper",
+    "min": 20,
+    "range": 30,
+    "orientationsIndexes": [
+      0,
+      1
+    ],
+    "id": 23
+  },
+  {
+    "name": "Histoire",
+    "min": 5,
+    "range": 35,
+    "orientationsIndexes": [
+      0,
+      2
+    ],
+    "id": 24
+  },
+  {
+    "name": "Imposture",
+    "min": 5,
+    "range": 35,
+    "orientationsIndexes": [
+      0,
+      1
+    ],
+    "id": 25
+  },
+  {
+    "name": "Lancer",
+    "min": 20,
+    "range": 20,
+    "orientationsIndexes": [
+      0,
+      1
+    ],
+    "id": 26
+  },
+  {
+    "name": "Mécanique",
+    "min": 10,
+    "range": 30,
+    "orientationsIndexes": [
+      0,
+      1
+    ],
+    "id": 27
+  },
+  {
+    "name": "Médecine",
+    "min": 1,
+    "range": 35,
+    "orientationsIndexes": [
+      0,
+      2
+    ],
+    "id": 28
+  },
+  {
+    "name": "Nager",
+    "min": 20,
+    "range": 20,
+    "orientationsIndexes": [
+      0,
+      1,
+      2
+    ],
+    "id": 29
+  },
+  {
+    "name": "Naturalisme",
+    "min": 10,
+    "range": 20,
+    "orientationsIndexes": [
+      0,
+      2
+    ],
+    "id": 30
+  },
+  {
+    "name": "Occultisme",
+    "min": 5,
+    "range": 15,
+    "orientationsIndexes": [
+      0,
+      2
+    ],
+    "id": 31
+  },
+  {
+    "name": "Orientation",
+    "min": 10,
+    "range": 25,
+    "orientationsIndexes": [
+      0,
+      1,
+      2
+    ],
+    "id": 32
+  },
+  {
+    "name": "Pickpocket",
+    "min": 10,
+    "range": 40,
+    "orientationsIndexes": [
+      0,
+      1
+    ],
+    "id": 33
+  },
+  {
+    "name": "Pilotage",
+    "min": 1,
+    "range": 30,
+    "orientationsIndexes": [
+      0,
+      1
+    ],
+    "id": 34
+  },
+  {
+    "name": "Pister",
+    "min": 10,
+    "range": 30,
+    "orientationsIndexes": [
+      0,
+      1
+    ],
+    "id": 35
+  },
+  {
+    "name": "Plongée",
+    "min": 1,
+    "range": 30,
+    "orientationsIndexes": [
+      0,
+      1
+    ],
+    "id": 36
+  },
+  {
+    "name": "Premiers soins",
+    "min": 30,
+    "range": 30,
+    "orientationsIndexes": [
+      0,
+      1,
+      2
+    ],
+    "id": 37
+  },
+  {
+    "name": "Psychanalyse",
+    "min": 1,
+    "range": 25,
+    "orientationsIndexes": [
+      0,
+      2
+    ],
+    "id": 38
+  },
+  {
+    "name": "Sauter",
+    "min": 20,
+    "range": 30,
+    "orientationsIndexes": [
+      0,
+      1,
+      2
+    ],
+    "id": 39
+  },
+  {
+    "name": "Sciences",
+    "min": 1,
+    "range": 50,
+    "orientationsIndexes": [
+      0,
+      2
+    ],
+    "id": 40
+  },
+  {
+    "name": "Survie",
+    "min": 10,
+    "range": 30,
+    "orientationsIndexes": [
+      0,
+      1
+    ],
+    "id": 41
+  },
+  {
+    "name": "Trouver Objet Caché",
+    "min": 25,
+    "range": 50,
+    "orientationsIndexes": [
+      0,
+      1,
+      2
+    ],
+    "id": 42
+  }
+]

@@ -30,7 +30,7 @@
         </div>
       </template>
 
-      <!-- Label -->
+      <!-- Label (either text OR input-field)-->
       <template v-slot:label="{ item }">
         <draggable
           :class="{
@@ -43,10 +43,10 @@
           @end="endDnD"
         >
           <div class="pa-4" @click="onClick(item)">
-            <!-- If editing -->
+            <!-- If editing: input-field -->
             <v-form
               v-if="!!item.isEditing"
-              :ref="`form_playlist_audio_${item.id}`"
+              :ref="`form_playlist_audio_${!!item.id ? item.id : item.idAudio}`"
               v-model="item.form"
               @submit.prevent
             >
@@ -69,6 +69,7 @@
               </v-text-field>
             </v-form>
 
+            <!-- If consulting: label -->
             <div v-else>
               <span v-if="item.surname">
                 {{ item.surname }}<br />
@@ -81,11 +82,7 @@
       </template>
 
       <!-- Append icon -->
-      <template
-        v-if="enableEdit"
-        v-slot:append="{ item, open }"
-        @click="onClick(item)"
-      >
+      <template  v-if="enableEdit" v-slot:append="{ item }" @click="onClick(item)">
         <!-- Is editing the name -->
         <v-icon
           v-if="item.isEditing"
@@ -207,6 +204,7 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
       }
     }
 
+    /** */
     public async tryDeleteFromPlaylist(idPlaylist: string, idItem: string): Promise<void> {
       await this.deleteFromPlaylist({ idPlaylist: idPlaylist, idItem: idItem });
     }

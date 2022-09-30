@@ -94,18 +94,6 @@
 
         <!-- other actions -->
         <div v-else>
-          <!-- add subfolder (only for folders) -->
-          <v-icon
-            v-if="!!item.children"
-            class="zoom"
-            color="grey lighten-1"
-            v-text="'mdi-folder-multiple-plus'"
-            @click.stop="
-              open = true;
-              cancelEdit(item);
-            "
-          />
-
           <!-- Rename item -->
           <v-icon
             class="zoom"
@@ -185,7 +173,6 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
     async editAudioFromPlaylist(file: any): Promise<void> {
       // If the form is valid
       const formId: string = `form_playlist_audio_${file.id}`;
-      // const form = this.$refs[formId][0];
       const form: any = this.$refs[formId];
 
       if (form.validate()) {

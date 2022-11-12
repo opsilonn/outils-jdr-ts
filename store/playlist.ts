@@ -20,7 +20,7 @@ export default class PlaylistStore extends VuexModule {
   }
 
   // Why forEach-loops, if I modify the index ?
-  // You cannot modify the actual object when itirating, only the properties. Hence, we need to modify at the index
+  // You cannot modify the actual object when iterating, only the properties. Hence, we need to modify at the index
   // items.forEach(item => item = new Obj(...)) = WRONG
   // items.forEach(item => item.property = ...) = GOOD
   public static FILL_PLAYLIST_ITEMS(database: any, items: PlaylistItem[]): void {

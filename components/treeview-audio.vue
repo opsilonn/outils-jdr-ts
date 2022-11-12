@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-treeview :items="audioFolder" item-key="!!item.id ? item.id : item.idAudio" hoverable open-on-click shaped return-object dense>
+    <v-treeview :items="audioFolder" item-key="!!item.id ? item.id : item.idAudio" hoverable open-on-click shaped dense>
       <!-- Prepend icon -->
       <template v-slot:prepend="{ item, open }">
         <div @click="onClick(item)">
@@ -22,7 +22,7 @@
         >
           <div class="pa-4" @click="onClick(item)">
             <!-- If editing: input-field -->
-            <v-form v-if="!!item.isEditing" :ref="`form_playlist_audio_${!!item.id ? item.id : item.idAudio}`" v-model="item.form" @submit.prevent>
+            <v-form v-if="!!item.isEditing" :ref="`form_playlist_audio_${item.id}`" v-model="item.form" @submit.prevent>
               <v-text-field v-model="item.surnameEdit" :rules="[rules.max50, rules.ascii]" :label="item.name" counter @click.stop @keyup.enter.stop="editAudioFromPlaylist(item)">
                 <template v-slot:append>
                   <v-fade-transition leave-absolute>
@@ -113,26 +113,26 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
   }
 
   /** */
-  onClick(file: any): void {
+  onClick(file: PlaylistItemFilled): void {
     if ((!file.children || (file.children && file.children.length == 0)) && this.enablePlay && !file.isEditing) {
       this.setAudio(file);
     }
   }
 
   /** */
-  beginEdit(file: any): void {
-    this.$set(file, "isEditing", true);
-    this.$set(file, "form", false);
-    this.$set(file, "surnameEdit", file.surname || "");
+  beginEdit(file: PlaylistItemFilled): void {
+    file.isEditing = true;
+    file.form = false;
+    file.surnameEdit = file.surname || "";
   }
 
   /** */
-  cancelEdit(file: any): void {
-    this.$set(file, "isEditing", false);
+  cancelEdit(file: PlaylistItemFilled): void {
+    file.isEditing = false;
   }
 
   /** */
-  async editAudioFromPlaylist(file: any): Promise<void> {
+  async editAudioFromPlaylist(file: PlaylistItemFilled): Promise<void> {
     // If the form is valid
     const formId: string = `form_playlist_audio_${file.id}`;
     const form: any = this.$refs[formId];
@@ -148,8 +148,8 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
       }
 
       // We first edit the object
-      this.$set(file, "isEditing", false);
-      this.$set(file, "surname", file.surnameEdit);
+      file.isEditing = false;
+      file.surname = file.surnameEdit;
     }
   }
 

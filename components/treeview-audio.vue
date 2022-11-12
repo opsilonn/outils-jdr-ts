@@ -4,21 +4,7 @@
       <!-- Prepend icon -->
       <template v-slot:prepend="{ item, open }">
         <div @click="onClick(item)">
-          <v-icon
-            v-text="
-              item.children && 0 < item.children.length
-                ? open
-                  ? 'mdi-folder-open'
-                  : 'mdi-folder'
-                : item.path.split('/')[2].includes('Ambiance')
-                ? 'mdi-city-variant-outline'
-                : item.path.split('/')[2].includes('Musique')
-                ? 'mdi-music-note'
-                : item.path.split('/')[2].includes('SFX')
-                ? 'mdi-ear-hearing'
-                : 'mdi-help'
-            "
-          />
+          <v-icon v-text="getItemIcon(item, open)" />
         </div>
       </template>
 
@@ -110,6 +96,21 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
   public deleteFromPlaylist: (paramsReceived: { idPlaylist: string; idItem: string }) => Promise<void>;
   @audioPlayer.Mutation
   public setAudio: (audio: AudioItem) => void;
+
+  /** */
+  getItemIcon(item: PlaylistItemFilled, isOpen: boolean): string {
+    return item.children && 0 < item.children.length
+      ? isOpen
+        ? "mdi-folder-open"
+        : "mdi-folder"
+      : item.path.split("/")[2].includes("Ambiance")
+      ? "mdi-city-variant-outline"
+      : item.path.split("/")[2].includes("Musique")
+      ? "mdi-music-note"
+      : item.path.split("/")[2].includes("SFX")
+      ? "mdi-ear-hearing"
+      : "mdi-help";
+  }
 
   /** */
   onClick(file: any): void {

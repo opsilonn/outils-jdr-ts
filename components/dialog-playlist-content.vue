@@ -99,10 +99,10 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
   public getPlaylistById: (id: string) => Playlist;
   @audioItem.Getter
   public getAudioFromDatabase: (id: string) => AudioItem;
-  @audioItem.State
-  public audioFolder: PlaylistItemFilled[];
   @audioPlayer.State
   public audioCategories: AudioCategory[];
+  @audioItem.Getter
+  public getAudioFolderByTitle: (name: string) => PlaylistItem[];
   @playlist.State
   public savedPlaylist: Playlist;
   @playlist.Action
@@ -131,14 +131,6 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
   mounted() {
     EventBus.$on(EventBus.ADD_TO_PLAYLIST, async (event: CustomEvent) => this.addFile(event));
     EventBus.$on(EventBus.MOVE_WITHIN_PLAYLIST, async (event: any) => this.tryMoveItemWithinPlaylist(event));
-  }
-
-  /**
-   * Gets a specific folder from the audioFolder, given its title
-   * @param {String} name Title of the folder to find
-   */
-  getAudioFolderByTitle(name: string): PlaylistItemFilled[] {
-    return this.audioFolder.find((folder: PlaylistItemFilled) => folder.name === name).children as PlaylistItemFilled[];
   }
 
   /** */

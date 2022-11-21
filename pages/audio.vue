@@ -114,7 +114,9 @@ import TreeviewAudio from "~/components/treeview-audio.vue";
 import draggable from "vuedraggable";
 import Playlist from "~/models/models/playlist";
 import AudioItem from "~/models/models/audio-item";
+import PlaylistItemFilled from "~/models/models/playlist-item-filled";
 import LoaderComponent from "~/components/loader.vue";
+import PlaylistItem from "~/models/models/playlist-item";
 const audioItem = namespace("audioItem");
 const playlist = namespace("playlist");
 const audioPlayer = namespace("audioPlayer");
@@ -137,9 +139,9 @@ export default class AudioPage extends Vue {
   dialogPlaylistAudio: boolean = false;
 
   @audioItem.State
-  public audioFolder: any;
-  @audioItem.State
   public audiosDatabase: any;
+  @audioItem.Getter
+  public getAudioFolderByTitle: (name: string) => PlaylistItem[];
   @playlist.State
   public playlists: any;
   @audioPlayer.State
@@ -193,13 +195,6 @@ export default class AudioPage extends Vue {
     this.isPageLoading = false;
   }
 
-    /**
-     * Gets a specific folder from the audioFolder, given its title
-     * @param {String} name Title of the folder to find
-     */
-    getAudioFolderByTitle(name: string): any {
-      return this.audioFolder.find((folder: any) => folder.name === name).children;
-    }
 
     /** */
     openDialogNew(): void {

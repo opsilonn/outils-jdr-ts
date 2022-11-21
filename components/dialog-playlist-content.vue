@@ -137,8 +137,9 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
    * Gets a specific folder from the audioFolder, given its title
    * @param {String} name Title of the folder to find
    */
-  getAudioFolderByTitle(name: string): PlaylistItemFilled[] {
-    return this.audioFolder.find((folder: PlaylistItemFilled) => folder.name === name).children as PlaylistItemFilled[];
+  getAudioFolderByTitle(name: string): PlaylistItem[] {
+    const item: PlaylistItemFilled = this.audioFolder.find((folder: PlaylistItemFilled) => folder.name === name);
+    return !!item ? item.children : [];
   }
 
   /** */

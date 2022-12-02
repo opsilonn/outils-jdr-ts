@@ -1,69 +1,101 @@
-# test
+# assistant-jdr-web
+Ce projet vise à donner différent outils pour faciliter le travail du MJ.
+Actuellement, il contient :
+- création rapide de fiches de personnage-non-joueur
+- gestionnaire de musiques et sons
 
-## Build Setup
 
-```bash
-# install dependencies
-$ npm install
+## Installation du projet
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+Node.js est nécessaire pour faire fonctionner le projet, et peut être [téléchargé ici](https://nodejs.org/en)
 
-# build for production and launch server
-$ npm run build
-$ npm run start
+Il faut **impérativement** créer le fichier */server/local.server.config.js* avec le contenu suivant, (qui peut être trouvé dans le [fichier suivant](https://github.com/opsilonn/outils-jdr-ts/blob/main/server/local.server.config.example.js)):
 
-# generate static project
-$ npm run generate
+```js
+module.exports = {
+    SESSION_SECRET: "randomly generated string",
+    POSTGRES_USER: "postgres",
+    POSTGRES_HOST: "localhost",
+    POSTGRES_DB: "example_app",
+    POSTGRES_PASSWORD: "123motdepassesecu",
+}
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+```bash
+# Installer les dépendances
+$ npm install
 
-## Special Directories
-
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
-
-### `assets`
-
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
-
-### `components`
-
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+# Lancer le projet
+$ npm run dev
+```
+Le projet sera lancé à cette adresse : **localhost:3000**
 
 
-### `pages`
+## Ajouter la musique
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+Pour inclure de la musique au projet, il faut ajouter des fichiers (.mp3, .webm...) dans l'arborescence :
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
+```bash
+/static/audio/
+|
+|-- Ambiance
+|-- Musique
+|-- SFX
+```
 
-### `plugins`
+**Les dossiers suivants ne doivent pas être modifiés !**
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+### `ambiance`
+Les sons d'ambiance, tel qu'en ville ou en forêt
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+### `musique`
+Les musiques, pour le combat ou installer une atmosphère
 
-### `static`
+### `SFX`
+Les sons divers, comme un coup de feu, une explosion ou un bruit de quelqu'un qui toque
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
 
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
+Pour le reste, on peut librement ajouter des fichiers et des sous-dossiers.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
+Ainsi, le projet peut ressembler à :
 
-### `store`
+```bash
+/static/audio/
+|
+|-- Ambiance
+    |-- Forêt
+      |-- forêt.mp3
+    |-- Nature
+      |-- vent.mp3
+      |-- vagues et mouettes.mp3
+    |-- Ville
+      |-- bibliothèque.mp3
+      |-- restaurant.mp3
+|-- Musique
+    |-- Combat
+      |-- musique de combat 1.mp3
+      |-- musique de combat 2.mp3
+      |-- musique de combat 3.mp3
+    |-- Jazz
+      |-- reprise jazz - call of ktulu.mp3
+      |-- reprise jazz - fell good inc.mp3
+    |-- Orchestral
+      |-- Dies Irae.mp3
+|-- SFX
+    |-- Arme
+      |-- tir    
+        |-- Arme
+          |-- tir de Beretta.mp3
+          |-- tir de Revolver.mp3
+      |-- Explosion
+        |-- explosion distante.mp3
+    |-- Véhicule
+        |-- moteur de camion.mp3
+        |-- moteur de voiture.mp3
+```
 
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
+## Auteurs
+Ce projet a été fait par les personnes suivantes :
+* **BEGEOT Hugues** - [son dépôt  GitHub](https://github.com/opsilonn)
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+Voir aussi [la liste des contributeurs](https://github.com/opsilonn/outils-jdr-ts/graphs/contributors) qui ont participaté au projet.

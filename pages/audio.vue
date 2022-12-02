@@ -139,9 +139,9 @@ export default class AudioPage extends Vue {
   dialogPlaylistAudio: boolean = false;
 
   @audioItem.State
-  public audioFolder: any;
-  @audioItem.State
   public audiosDatabase: any;
+  @audioItem.Getter
+  public getAudioFolderByTitle: (name: string) => PlaylistItem[];
   @playlist.State
   public playlists: any;
   @audioPlayer.State
@@ -195,14 +195,6 @@ export default class AudioPage extends Vue {
     this.isPageLoading = false;
   }
 
-    /**
-     * Gets a specific folder from the audioFolder, given its title
-     * @param {String} name Title of the folder to find
-     */
-    getAudioFolderByTitle(name: string): PlaylistItem[] {
-      const item: PlaylistItemFilled = this.audioFolder.find((folder: PlaylistItemFilled) => folder.name === name);
-      return !!item ? item.children : [];
-    }
 
     /** */
     openDialogNew(): void {

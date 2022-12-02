@@ -23,22 +23,10 @@
       <!-- col n° 1 - GUI -->
       <v-col class="pa-4" sm="12" md="4">
         <!-- Orientation -->
-        <v-select
-          class="pa-8"
-          v-model="orientation"
-          :items="itemsOrientation"
-          label="Orientation"
-          @change="applyOrientation()"
-        />
+        <v-select class="pa-8" v-model="orientation" :items="itemsOrientation" label="Orientation" @change="applyOrientation()" />
 
         <!-- Âge -->
-        <v-select
-          class="pa-8"
-          v-model="age"
-          :items="itemsAge"
-          label="Âge"
-          @change="applyAge()"
-        />
+        <v-select class="pa-8" v-model="age" :items="itemsAge" label="Âge" @change="applyAge()" />
       </v-col>
 
       <v-divider vertical />
@@ -47,19 +35,8 @@
       <v-col class="pa-4" sm="12" md="4">
         <!-- Caractéristiques -->
         <v-row>
-          <v-col
-            cols="6"
-            v-for="(item, index) in Object.keys(
-              statsDisplayed.caractéristiques
-            )"
-            :key="index"
-          >
-            <v-text-field
-              v-model.number="statsDisplayed.caractéristiques[item]"
-              :label="item"
-              onkeypress="return event.charCode >= 48"
-              readonly
-            />
+          <v-col cols="6" v-for="(item, index) in Object.keys(statsDisplayed.caractéristiques)" :key="index">
+            <v-text-field v-model.number="statsDisplayed.caractéristiques[item]" :label="item" onkeypress="return event.charCode >= 48" readonly />
           </v-col>
         </v-row>
 
@@ -69,17 +46,8 @@
 
         <!-- autres -->
         <v-row>
-          <v-col
-            cols="3"
-            v-for="(item, index) in Object.keys(statsDisplayed.autres)"
-            :key="index"
-          >
-            <v-text-field
-              v-model="statsDisplayed.autres[item]"
-              :label="item"
-              onkeypress="return event.charCode >= 48"
-              readonly
-            />
+          <v-col cols="3" v-for="(item, index) in Object.keys(statsDisplayed.autres)" :key="index">
+            <v-text-field v-model="statsDisplayed.autres[item]" :label="item" onkeypress="return event.charCode >= 48" readonly />
           </v-col>
         </v-row>
       </v-col>
@@ -117,8 +85,8 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
   orientation: string = "";
   age: string = "";
 
-  statsBase: { caractéristiques: any, autres: any } = { caractéristiques: {}, autres: {} };
-  statsDisplayed: { caractéristiques: any, autres: any } = { caractéristiques: {}, autres: {} };
+  statsBase: { caractéristiques: any; autres: any } = { caractéristiques: {}, autres: {} };
+  statsDisplayed: { caractéristiques: any; autres: any } = { caractéristiques: {}, autres: {} };
   compétences: Competence[] = [];
 
   itemsOrientation: string[] = ["Équilibré", "Combat", "Intello"];
@@ -143,42 +111,39 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
 
   /** */
   get getTotal(): number {
-    return Object.keys(this.statsDisplayed.caractéristiques).reduce(
-      (previous, key) => previous + this.statsDisplayed.caractéristiques[key],
-      0
-    );
+    return Object.keys(this.statsDisplayed.caractéristiques).reduce((previous, key) => previous + this.statsDisplayed.caractéristiques[key], 0);
   }
-  
+
   @Watch("statsBase.caractéristiques.constitution", { deep: true })
   constitutionChanged(): void {
-      this.setPV();
+    this.setPV();
   }
   @Watch("statsBase.caractéristiques.dextérité", { deep: true })
   dexteriteChanged(val: number): void {
-      this.setMouvement();
-      const newVal = Math.floor(val / 2);
-      this.statsBase.autres.esquive = newVal;
-      this.statsDisplayed.autres.esquive = newVal;
+    this.setMouvement();
+    const newVal = Math.floor(val / 2);
+    this.statsBase.autres.esquive = newVal;
+    this.statsDisplayed.autres.esquive = newVal;
   }
   @Watch("statsBase.caractéristiques.force", { deep: true })
   forceChanged(): void {
-      this.setMouvement();
-      this.setCarrure();
-      this.setImpact();
+    this.setMouvement();
+    this.setCarrure();
+    this.setImpact();
   }
   @Watch("statsBase.caractéristiques.pouvoir", { deep: true })
   pouvoirChanged(val: number): void {
-      this.statsBase.autres.mana = val;
-      this.statsBase.autres.sanité = val;
-      this.statsDisplayed.autres.mana = val;
-      this.statsDisplayed.autres.sanité = val;
+    this.statsBase.autres.mana = val;
+    this.statsBase.autres.sanité = val;
+    this.statsDisplayed.autres.mana = val;
+    this.statsDisplayed.autres.sanité = val;
   }
   @Watch("statsBase.caractéristiques.taille", { deep: true })
   tailleChanged(): void {
-      this.setMouvement();
-      this.setPV();
-      this.setCarrure();
-      this.setImpact();
+    this.setMouvement();
+    this.setPV();
+    this.setCarrure();
+    this.setImpact();
   }
 
   async mounted() {
@@ -231,8 +196,7 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
       this.statsBase.caractéristiques.force = this.rollDice(3, 6) * 5;
       this.statsBase.caractéristiques.pouvoir = this.rollDice(3, 6) * 5;
       this.statsBase.caractéristiques.éducation = (this.rollDice(2, 6) + 6) * 5;
-      this.statsBase.caractéristiques.intelligence =
-        (this.rollDice(2, 6) + 6) * 5;
+      this.statsBase.caractéristiques.intelligence = (this.rollDice(2, 6) + 6) * 5;
       this.statsBase.caractéristiques.taille = (this.rollDice(2, 6) + 6) * 5;
     } else if (this.orientation === this.itemsOrientation[1]) {
       // Battle
@@ -240,71 +204,29 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
       const set = this.getRandomizedSet();
 
       // We favorise the battle stats
-      this.statsBase.caractéristiques.force = this.rollPercentage(75)
-        ? set.shift()
-        : set.splice(Math.random() * set.length, 1)[0];
-      this.statsBase.caractéristiques.constitution = this.rollPercentage(75)
-        ? set.shift()
-        : set.splice(Math.random() * set.length, 1)[0];
-      this.statsBase.caractéristiques.taille = this.rollPercentage(75)
-        ? set.shift()
-        : set.splice(Math.random() * set.length, 1)[0];
+      this.statsBase.caractéristiques.force = this.rollPercentage(75) ? set.shift() : set.splice(Math.random() * set.length, 1)[0];
+      this.statsBase.caractéristiques.constitution = this.rollPercentage(75) ? set.shift() : set.splice(Math.random() * set.length, 1)[0];
+      this.statsBase.caractéristiques.taille = this.rollPercentage(75) ? set.shift() : set.splice(Math.random() * set.length, 1)[0];
 
-      this.statsBase.caractéristiques.dextérité = set.splice(
-        Math.random() * set.length,
-        1
-      )[0];
-      this.statsBase.caractéristiques.apparence = set.splice(
-        Math.random() * set.length,
-        1
-      )[0];
-      this.statsBase.caractéristiques.pouvoir = set.splice(
-        Math.random() * set.length,
-        1
-      )[0];
-      this.statsBase.caractéristiques.intelligence = set.splice(
-        Math.random() * set.length,
-        1
-      )[0];
-      this.statsBase.caractéristiques.éducation = set.splice(
-        Math.random() * set.length,
-        1
-      )[0];
+      this.statsBase.caractéristiques.dextérité = set.splice(Math.random() * set.length, 1)[0];
+      this.statsBase.caractéristiques.apparence = set.splice(Math.random() * set.length, 1)[0];
+      this.statsBase.caractéristiques.pouvoir = set.splice(Math.random() * set.length, 1)[0];
+      this.statsBase.caractéristiques.intelligence = set.splice(Math.random() * set.length, 1)[0];
+      this.statsBase.caractéristiques.éducation = set.splice(Math.random() * set.length, 1)[0];
     } else {
       // Support
       // We create a random set
       const set = this.getRandomizedSet();
 
       // We favorise the support stats
-      this.statsBase.caractéristiques.éducation = this.rollPercentage(75)
-        ? set.shift()
-        : set.splice(Math.random() * set.length, 1)[0];
-      this.statsBase.caractéristiques.intelligence = this.rollPercentage(75)
-        ? set.shift()
-        : set.splice(Math.random() * set.length, 1)[0];
-      this.statsBase.caractéristiques.pouvoir = this.rollPercentage(75)
-        ? set.shift()
-        : set.splice(Math.random() * set.length, 1)[0];
-      this.statsBase.caractéristiques.apparence = set.splice(
-        Math.random() * set.length,
-        1
-      )[0];
-      this.statsBase.caractéristiques.dextérité = set.splice(
-        Math.random() * set.length,
-        1
-      )[0];
-      this.statsBase.caractéristiques.taille = set.splice(
-        Math.random() * set.length,
-        1
-      )[0];
-      this.statsBase.caractéristiques.constitution = set.splice(
-        Math.random() * set.length,
-        1
-      )[0];
-      this.statsBase.caractéristiques.force = set.splice(
-        Math.random() * set.length,
-        1
-      )[0];
+      this.statsBase.caractéristiques.éducation = this.rollPercentage(75) ? set.shift() : set.splice(Math.random() * set.length, 1)[0];
+      this.statsBase.caractéristiques.intelligence = this.rollPercentage(75) ? set.shift() : set.splice(Math.random() * set.length, 1)[0];
+      this.statsBase.caractéristiques.pouvoir = this.rollPercentage(75) ? set.shift() : set.splice(Math.random() * set.length, 1)[0];
+      this.statsBase.caractéristiques.apparence = set.splice(Math.random() * set.length, 1)[0];
+      this.statsBase.caractéristiques.dextérité = set.splice(Math.random() * set.length, 1)[0];
+      this.statsBase.caractéristiques.taille = set.splice(Math.random() * set.length, 1)[0];
+      this.statsBase.caractéristiques.constitution = set.splice(Math.random() * set.length, 1)[0];
+      this.statsBase.caractéristiques.force = set.splice(Math.random() * set.length, 1)[0];
     }
 
     // Autres (certains sont calculés automatiquement par des Watchers)
@@ -336,10 +258,7 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
         this.statsDisplayed.caractéristiques.taille -= 5 - rnd;
       }
       this.statsDisplayed.caractéristiques.éducation -= 5;
-      this.statsDisplayed.autres.chance = Math.max(
-        this.statsBase.autres.chance,
-        this.rollDice(1, 100)
-      );
+      this.statsDisplayed.autres.chance = Math.max(this.statsBase.autres.chance, this.rollDice(1, 100));
     } else {
       // Test(s) d'expérience, compris entre 1 et 4
       this.textExpérience(Math.min(index, 4));
@@ -401,45 +320,24 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
   /** */
   setMouvement(): void {
     this.statsBase.autres.mouvement = 9;
-    if (
-      this.statsBase.caractéristiques.force >
-      this.statsBase.caractéristiques.taille
-    ) {
+    if (this.statsBase.caractéristiques.force > this.statsBase.caractéristiques.taille) {
       this.statsBase.autres.mouvement--;
     }
-    if (
-      this.statsBase.caractéristiques.dextérité >
-      this.statsBase.caractéristiques.taille
-    ) {
+    if (this.statsBase.caractéristiques.dextérité > this.statsBase.caractéristiques.taille) {
       this.statsBase.autres.mouvement--;
     }
   }
 
   /** */
   setPV(): void {
-    this.statsBase.autres.pv = Math.floor(
-      (this.statsBase.caractéristiques.constitution +
-        this.statsBase.caractéristiques.taille) /
-        10
-    );
+    this.statsBase.autres.pv = Math.floor((this.statsBase.caractéristiques.constitution + this.statsBase.caractéristiques.taille) / 10);
     this.statsBase.autres.pv = this.statsDisplayed.autres.pv;
   }
 
   /** */
   setCarrure(): void {
-    const total =
-      this.statsBase.caractéristiques.force +
-      this.statsBase.caractéristiques.taille;
-    const carrure =
-      2 <= total && total <= 64
-        ? -2
-        : 65 <= total && total <= 84
-        ? -1
-        : 85 <= total && total <= 124
-        ? 0
-        : 125 <= total && total <= 164
-        ? 1
-        : 2;
+    const total = this.statsBase.caractéristiques.force + this.statsBase.caractéristiques.taille;
+    const carrure = 2 <= total && total <= 64 ? -2 : 65 <= total && total <= 84 ? -1 : 85 <= total && total <= 124 ? 0 : 125 <= total && total <= 164 ? 1 : 2;
 
     this.statsBase.autres.carrure = carrure;
     this.statsDisplayed.autres.carrure = carrure;
@@ -447,19 +345,8 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
 
   /** */
   setImpact(): void {
-    const total =
-      this.statsBase.caractéristiques.force +
-      this.statsBase.caractéristiques.taille;
-    const impact =
-      2 <= total && total <= 64
-        ? -2
-        : 65 <= total && total <= 84
-        ? -1
-        : 85 <= total && total <= 124
-        ? 0
-        : 125 <= total && total <= 164
-        ? "1D4"
-        : "1D6";
+    const total = this.statsBase.caractéristiques.force + this.statsBase.caractéristiques.taille;
+    const impact = 2 <= total && total <= 64 ? -2 : 65 <= total && total <= 84 ? -1 : 85 <= total && total <= 124 ? 0 : 125 <= total && total <= 164 ? "1D4" : "1D6";
 
     this.statsBase.autres.impact = impact;
     this.statsDisplayed.autres.impact = impact;
@@ -468,9 +355,7 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
   /** */
   textExpérience(cpt: number): void {
     for (let i = 0; i < cpt; i++) {
-      if (
-        this.rollDice(1, 100) > this.statsDisplayed.caractéristiques.éducation
-      ) {
+      if (this.rollDice(1, 100) > this.statsDisplayed.caractéristiques.éducation) {
         this.statsDisplayed.caractéristiques.éducation += this.rollDice(1, 10);
       }
     }

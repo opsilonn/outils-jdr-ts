@@ -68,7 +68,7 @@ export default class DialogPlaylistDataComponent extends mixins(RulesMixin) {
     if (this.dialog) {
       // get the Playlist
       this.playlist = this.getPlaylistById(this.idPlaylist);
-      this.playlistName = !!this.playlist ? this.playlist.name : "";
+      this.playlistName = this.playlist?.name || "";
     }
   }
 

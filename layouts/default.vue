@@ -43,7 +43,7 @@ export default class DefaultLayout extends Vue {
   /** Sets the value of the image to display, if any */
   setSourceImage(): void {
     const navItem: NavItem = Object.values(EnumRouter).find((item: NavItem) => item.route === this.$route.path);
-    this.src = !!navItem ? navItem.src : this.srcDefault;
+    this.src = navItem?.src || this.srcDefault;
   }
 }
 </script>

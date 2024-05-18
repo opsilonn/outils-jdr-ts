@@ -5,7 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "test:unit": "vue-cli-service test:unit",
-    "dev": "nuxt",
+    "dev": "set NODE_OPTIONS=--openssl-legacy-provider && nuxt",
     "generate": "nuxt generate",
     "start": "nuxt start",
     "test": "jest"

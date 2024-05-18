@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-treeview :items="audioFolder" item-key="!!item.id ? item.id : item.idAudio" hoverable open-on-click shaped dense>
+    <v-treeview :items="audioFolder" item-key="idAudio" hoverable open-on-click shaped dense>
       <!-- Prepend icon -->
       <template v-slot:prepend="{ item, open }">
         <div @click="onClick(item)">

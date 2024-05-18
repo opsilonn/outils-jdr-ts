@@ -9,7 +9,6 @@ const audioFolderPath = "./static/audio";
 export default class AudioCRUD {
 
   static audiosDatabase: AudioItem[]= [];
-  static x = true;
 
   /**
    * @returns {Promise<[]>}

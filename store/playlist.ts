@@ -1,9 +1,9 @@
-import { Action, Module, VuexModule, Mutation } from 'vuex-module-decorators';
 import axios from 'axios';
-import Playlist from '~/models/models/playlist';
-import PlaylistItemFilled from '~/models/models/playlist-item-filled';
+import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import AudioItem from '~/models/models/audio-item';
+import Playlist from '~/models/models/playlist';
 import PlaylistItem from '~/models/models/playlist-item';
+import PlaylistItemFilled from '~/models/models/playlist-item-filled';
 
 @Module({
   // Ne pas remplir le champ "name", car pour X raison ça cause l'erreur ERR_STORE_NOT_PROVIDED

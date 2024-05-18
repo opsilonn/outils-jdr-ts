@@ -1,6 +1,6 @@
 // Imports
 import { Howl } from "howler";
-import { Module, VuexModule, Mutation } from 'vuex-module-decorators';
+import { Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import AudioCategory from "~/models/models/audio-category";
 import AudioItem from "~/models/models/audio-item";
 const INDEX_OF_CATEGORY_NAME = 2;

@@ -19,7 +19,7 @@
 // Imports
 import LayoutAppBar from "@/components/layout-appbar.vue";
 import LayoutFooter from "@/components/layout-footer.vue";
-import { Vue, Component, Watch } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import EnumRouter from "~/models/enums/EnumRouter";
 import NavItem from "~/models/models/nav-item";
 

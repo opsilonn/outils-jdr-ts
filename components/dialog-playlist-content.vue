@@ -71,15 +71,14 @@
 
 <script lang="ts">
 // Imports
-import { Component, mixins, Prop, namespace, Watch } from "nuxt-property-decorator";
-import EventBus from "~/EventBus";
+import { Component, Prop, Watch, mixins, namespace } from "nuxt-property-decorator";
 import draggable from "vuedraggable";
+import EventBus from "~/EventBus";
 import TreeviewAudioComponent from "~/components/treeview-audio.vue";
 import AudioMixin from "~/mixins/audio";
-import Playlist from "~/models/models/playlist";
-import AudioItem from "~/models/models/audio-item";
 import AudioCategory from "~/models/models/audio-category";
-import PlaylistItemFilled from "~/models/models/playlist-item-filled";
+import AudioItem from "~/models/models/audio-item";
+import Playlist from "~/models/models/playlist";
 import PlaylistItem from "~/models/models/playlist-item";
 const playlist = namespace("playlist");
 const audioItem = namespace("audioItem");

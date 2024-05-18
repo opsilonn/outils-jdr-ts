@@ -1,4 +1,4 @@
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component
 export default class DiceMixin extends Vue {

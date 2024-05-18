@@ -4,7 +4,7 @@
 
 <script lang="ts">
 // Imports
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({})
 export default class DungeonsAndDragonsPage extends Vue {

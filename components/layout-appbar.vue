@@ -50,7 +50,7 @@
 // Imports
 import DraggableTimerComponent from "@/components/draggable-timer.vue";
 import { EnumRouter } from "@/models/enums";
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({
   components: { DraggableTimerComponent },

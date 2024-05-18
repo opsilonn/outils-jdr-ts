@@ -2,9 +2,9 @@ import fs from "fs";
 import path from "path";
 import { promisify } from "util";
 import { v4 as uuidv4 } from "uuid";
-import PlaylistItem from "../../models/models/playlist-item";
 import AudioItem from "../../models/models/audio-item";
 import Playlist from "../../models/models/playlist";
+import PlaylistItem from "../../models/models/playlist-item";
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);

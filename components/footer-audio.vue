@@ -51,7 +51,7 @@
 
 <script lang="ts">
 // Imports
-import { Vue, Component, namespace, Watch } from "nuxt-property-decorator";
+import { Component, Vue, Watch, namespace } from "nuxt-property-decorator";
 import AudioCategory from "~/models/models/audio-category";
 const audioPlayer = namespace("audioPlayer");
 

@@ -106,16 +106,15 @@
 
 <script lang="ts">
 // Imports
-import { Component, Vue, namespace, Watch } from "nuxt-property-decorator";
-import DialogPlaylistData from "~/components/dialog-playlist-data.vue";
-import DialogPlaylistContent from "~/components/dialog-playlist-content.vue";
-import FooterAudio from "~/components/footer-audio.vue";
-import TreeviewAudio from "~/components/treeview-audio.vue";
+import { Component, Vue, Watch, namespace } from "nuxt-property-decorator";
 import draggable from "vuedraggable";
-import Playlist from "~/models/models/playlist";
-import AudioItem from "~/models/models/audio-item";
-import PlaylistItemFilled from "~/models/models/playlist-item-filled";
+import DialogPlaylistContent from "~/components/dialog-playlist-content.vue";
+import DialogPlaylistData from "~/components/dialog-playlist-data.vue";
+import FooterAudio from "~/components/footer-audio.vue";
 import LoaderComponent from "~/components/loader.vue";
+import TreeviewAudio from "~/components/treeview-audio.vue";
+import AudioItem from "~/models/models/audio-item";
+import Playlist from "~/models/models/playlist";
 import PlaylistItem from "~/models/models/playlist-item";
 const audioItem = namespace("audioItem");
 const playlist = namespace("playlist");

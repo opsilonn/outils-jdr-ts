@@ -67,12 +67,12 @@
 
 <script lang="ts">
 // Imports
-import draggable from "vuedraggable";
 import { Component, Prop, mixins, namespace } from "nuxt-property-decorator";
-import Playlist from "~/models/models/playlist";
+import draggable from "vuedraggable";
 import EventBus from "~/EventBus";
 import RulesMixin from "~/mixins/rules";
 import AudioItem from "~/models/models/audio-item";
+import Playlist from "~/models/models/playlist";
 import PlaylistItem from "~/models/models/playlist-item";
 import PlaylistItemFilled from "~/models/models/playlist-item-filled";
 const playlist = namespace("playlist");

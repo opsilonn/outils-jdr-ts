@@ -1,5 +1,5 @@
-import { Action, Module, VuexModule, Mutation } from 'vuex-module-decorators';
 import axios from 'axios';
+import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import Competence from '~/models/models/competence';
 
 @Module({

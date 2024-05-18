@@ -17,7 +17,7 @@
 <script lang="ts">
 // Imports
 import { EnumRouter } from "@/models/enums";
-import { Vue, Component } from 'nuxt-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({})
 export default class DefaultLayout extends Vue {

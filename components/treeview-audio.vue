@@ -82,6 +82,7 @@ const audioPlayer = namespace("audioPlayer");
   components: { draggable },
 })
 export default class TreeviewAudioComponent extends mixins(RulesMixin) {
+
   @Prop({ required: false }) readonly audioFolder: PlaylistItemFront[];
   @Prop({ required: false }) readonly idPlaylist: string;
   @Prop({ required: false }) readonly enableDnd: boolean;
@@ -140,9 +141,16 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
     if (form.validate()) {
       // We update the playlist if the surname is different
       if (file.surname !== file.surnameEdit) {
-        const data: any = {
+        const data: { idPlaylist: string; playlistItem: PlaylistItemBack } = {
           idPlaylist: this.idPlaylist,
-          playlistItem: new PlaylistItemBack(file.id, file.idAudio, file.surnameEdit, []),
+          playlistItem: {
+            children: [],
+            id: file.id,
+            idAudio: file.idAudio,
+            name: "",
+            path: "",
+            surname: file.surnameEdit
+          },
         };
         await this.updatePlaylistAudio(data);
       }

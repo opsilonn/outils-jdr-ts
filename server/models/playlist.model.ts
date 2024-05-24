@@ -190,7 +190,14 @@ export default class PlaylistCRUD {
     }
 
     // We initialize the new Audio
-    const newAudio: PlaylistItemBack = new PlaylistItemBack(uuidv4(), audioItem.id, "", []);
+    const newAudio: PlaylistItemBack = {
+      children: [],
+      id: uuidv4(),
+      idAudio: audioItem.id,
+      name: "",
+      path: "",
+      surname: "",
+    };
 
     // If no id was given : add to the root of the playlist
     if (!!idFolder) {

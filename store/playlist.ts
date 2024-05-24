@@ -26,8 +26,18 @@ export default class PlaylistStore extends VuexModule {
   public static FILL_PLAYLIST_ITEMS(database: any, items: PlaylistItemBack[]): void {
     items.forEach((item: PlaylistItemBack, i: number) => {
       if (item.idAudio) {
-        const audio = database.find((a: AudioItem) => a.id === items[i].idAudio);
-        items[i] = new PlaylistItemFront(item.id, item.idAudio, item.surname, item.children, audio.name, audio.path);
+        const audio = database.find((a: AudioItem) => a.id === items[i].idAudio);     
+        items[i] = {
+          children: item.children,
+          form: null,
+          id: item.id,
+          idAudio: item.idAudio,
+          isEditing: false,
+          name: audio.name,
+          path: audio.path,
+          surname: item.surname,
+          surnameEdit: null,
+        } as PlaylistItemFront;
       }
 
       if (item.children && 0 < item.children.length) {

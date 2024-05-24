@@ -135,7 +135,7 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
   /** */
   async addFile(event: any): Promise<void> {
     const audioToAdd: AudioItem = this.getAudioFromDatabase(event.from.id);
-    const playlistItemNextTo: PlaylistItemBack = this.getPlaylistItemById(event.to.id, this.savedPlaylist.rootFolder);
+    const playlistItemNextTo: PlaylistItemBack = this.getPlaylistItem(event.to.id, this.savedPlaylist.rootFolder);
     const index = Math.max(0, this.savedPlaylist.rootFolder.indexOf(playlistItemNextTo));
 
     await this.addAudioToPlaylist({
@@ -150,7 +150,7 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
 
   /** */
   async tryMoveItemWithinPlaylist(event: any): Promise<void> {
-    const folder: PlaylistItemBack = this.getFolderContainingPlaylistItemById(event.to.id, this.savedPlaylist.rootFolder);
+    const folder: PlaylistItemBack = this.getFolderContainingPlaylistItem(event.to.id, this.savedPlaylist.rootFolder);
     const idFolderToMoveTo: string = folder?.id || "";
     const newIndex: number = (folder?.children || this.savedPlaylist.rootFolder).findIndex((_: any) => _.id === event.to.id);
 

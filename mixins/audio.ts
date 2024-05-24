@@ -12,21 +12,17 @@ export default class AudioMixin extends Vue {
    * @returns 
    */
    public getPlaylistItemById(id: string, items: PlaylistItemBack[]): PlaylistItemBack {
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].id === id) {
-        return items[i];
+    for (let item of items) {
+      if (item.id === id) {
+        return item;
       }
 
-      if (items[i].children && items[i].children.length !== 0) {
-        const item = this.getPlaylistItemById(id, items[i].children);
-        if (!!item) {
-          return item;
-        }
+      const child = this.getPlaylistItemById(id, item.children);
+      if (!!child) {
+        return child;
       }
     }
   }
-
-
 
   /**
    * 
@@ -35,16 +31,18 @@ export default class AudioMixin extends Vue {
    * @returns 
    */
    public getFolderContainingPlaylistItemById(id: string, items: PlaylistItemBack[]): PlaylistItemBack {
-    for (let i = 0; i < items.length; i++) {
-      if (!!items[i].children) {
-        if (items[i].children.some(item => item.id === id)) {
-          return items[i];
-        }
+    for (let item of items) {
+      if (!item.children) {
+        continue;
+      }
 
-        const item = this.getFolderContainingPlaylistItemById(id, items[i].children);
-        if (!!item) {
-          return item;
-        }
+      if (item.children.some(item => item.id === id)) {
+        return item;
+      }
+
+      const child = this.getFolderContainingPlaylistItemById(id, item.children);
+      if (!!child) {
+        return child;
       }
     }
   }

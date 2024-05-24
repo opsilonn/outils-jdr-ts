@@ -78,7 +78,12 @@ export default class PlaylistCRUD {
     let playlists: Playlist[] = await this.getAll();
 
     // Create new Playlist
-    const playlist: Playlist = new Playlist(uuidv4(), playlistReceived.name, 0, []);
+    const playlist: Playlist = {
+      id: uuidv4(),
+      name: playlistReceived.name,
+      rootFolder: [],
+      total: 0
+    };
 
     // Add new Playlist
     playlists.push(playlist);

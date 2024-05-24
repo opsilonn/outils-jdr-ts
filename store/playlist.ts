@@ -12,7 +12,12 @@ import PlaylistItemFront from '~/models/models/playlist-item-front';
 })
 export default class PlaylistStore extends VuexModule {
   public playlists: Playlist[] = [];
-  savedPlaylist: Playlist = new Playlist("", "", 0, []);
+  savedPlaylist: Playlist = {
+    id: "",
+    name: "",
+    rootFolder: [],
+    total: 0
+  };
   database: AudioItem[] = [];
   
   get getPlaylistById(): (id: string) => Playlist {
@@ -100,7 +105,12 @@ export default class PlaylistStore extends VuexModule {
    */
   @Mutation
   RESET_SAVED_PLAYLIST(): void {
-    this.savedPlaylist = new Playlist("", "", 0, []);
+    this.savedPlaylist =  {
+      id: "",
+      name: "",
+      rootFolder: [],
+      total: 0
+    };
   }
 
   /**

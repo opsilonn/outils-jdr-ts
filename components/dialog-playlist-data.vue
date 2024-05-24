@@ -46,6 +46,7 @@ const playlist = namespace("playlist");
 
 @Component({})
 export default class DialogPlaylistDataComponent extends mixins(RulesMixin) {
+
   @Prop({ required: false }) readonly idPlaylist: string;
   @Prop({ required: true }) readonly dialog: boolean;
 
@@ -103,7 +104,12 @@ export default class DialogPlaylistDataComponent extends mixins(RulesMixin) {
 
   /** */
   private async add(): Promise<void> {
-    const newPlaylist: Playlist = new Playlist(null, this.playlistName, null, null);
+    const newPlaylist: Playlist = {
+      id: "",
+      name: this.playlistName,
+      rootFolder: [],
+      total: 0
+    };
     const playlist: Playlist = await this.createPlaylist(newPlaylist);
     if (!!playlist) {
       this.$emit("close-dialog");
@@ -113,7 +119,12 @@ export default class DialogPlaylistDataComponent extends mixins(RulesMixin) {
 
   /** */
   private async update(): Promise<void> {
-    const editedPlaylist: Playlist = new Playlist(this.playlist.id, this.playlistName, null, null);
+    const editedPlaylist: Playlist = {
+      id: this.playlist.id,
+      name: this.playlistName,
+      rootFolder: [],
+      total: 0
+    };
     const playlist: Playlist = await this.updatePlaylist(editedPlaylist);
     if (!!playlist) {
       this.$emit("close-dialog");

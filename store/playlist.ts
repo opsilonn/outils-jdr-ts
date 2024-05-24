@@ -3,7 +3,7 @@ import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import AudioItem from '~/models/models/audio-item';
 import Playlist from '~/models/models/playlist';
 import PlaylistItemBack from '~/models/models/playlist-item-back';
-import PlaylistItemFilled from '~/models/models/playlist-item-filled';
+import PlaylistItemFront from '~/models/models/playlist-item-front';
 
 @Module({
   // Ne pas remplir le champ "name", car pour X raison ça cause l'erreur ERR_STORE_NOT_PROVIDED
@@ -27,7 +27,7 @@ export default class PlaylistStore extends VuexModule {
     items.forEach((item: PlaylistItemBack, i: number) => {
       if (item.idAudio) {
         const audio = database.find((a: AudioItem) => a.id === items[i].idAudio);
-        items[i] = new PlaylistItemFilled(item.id, item.idAudio, item.surname, item.children, audio.name, audio.path);
+        items[i] = new PlaylistItemFront(item.id, item.idAudio, item.surname, item.children, audio.name, audio.path);
       }
 
       if (item.children && 0 < item.children.length) {
@@ -194,7 +194,7 @@ export default class PlaylistStore extends VuexModule {
 
   /** */
   @Action
-  async updatePlaylistAudio({ idPlaylist, playlistItem }: { idPlaylist: string, playlistItem: PlaylistItemFilled }): Promise<void> {
+  async updatePlaylistAudio({ idPlaylist, playlistItem }: { idPlaylist: string, playlistItem: PlaylistItemFront }): Promise<void> {
     const playlist = (await axios.put(`/api/playlist/${idPlaylist}/audio/${playlistItem.id}`, playlistItem)).data;
     PlaylistStore.FILL_PLAYLIST_ITEMS(this.database, playlist.rootFolder);
     this.context.commit("SET_SAVED_PLAYLIST", playlist);

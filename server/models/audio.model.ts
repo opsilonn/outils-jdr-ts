@@ -2,7 +2,7 @@ import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 import validator from "validator";
 import AudioItem from "../../models/models/audio-item";
-import PlaylistItemFilled from "../../models/models/playlist-item-filled";
+import PlaylistItemFront from "../../models/models/playlist-item-front";
 
 const AUDIO_FOLDER_PATH = "./static/audio";
 
@@ -13,10 +13,10 @@ export default class AudioCRUD {
   /**
    * @returns {Promise<[]>}
    */
-  public static async getAll(): Promise<{ audioFolder: PlaylistItemFilled[], audiosDatabase: AudioItem[] }> {
+  public static async getAll(): Promise<{ audioFolder: PlaylistItemFront[], audiosDatabase: AudioItem[] }> {
     this.audiosDatabase = [];
     
-    const audioFolder: PlaylistItemFilled[] = await this.readFolder(AUDIO_FOLDER_PATH);
+    const audioFolder: PlaylistItemFront[] = await this.readFolder(AUDIO_FOLDER_PATH);
 
     return {
       audioFolder: audioFolder,
@@ -29,8 +29,8 @@ export default class AudioCRUD {
    * @param {*} path Path of the current folder
    * @returns An object containing all its content
    */
-  private static readFolder(path: string): PlaylistItemFilled[] {
-    const folder: PlaylistItemFilled[] = [];
+  private static readFolder(path: string): PlaylistItemFront[] {
+    const folder: PlaylistItemFront[] = [];
 
     try {
       // We get all the files
@@ -58,7 +58,7 @@ export default class AudioCRUD {
    * @param {string} path
    * @returns
    */
-  private static getItem(fileName: string, path: string): PlaylistItemFilled {
+  private static getItem(fileName: string, path: string): PlaylistItemFront {
     // On déclare nos variables
     let id: string;
     let name: string;
@@ -77,7 +77,7 @@ export default class AudioCRUD {
     }
 
     // On construit l'audio
-    const item: PlaylistItemFilled = new PlaylistItemFilled(null, id, "", [], name, fullPath.replace("./static", ""));
+    const item: PlaylistItemFront = new PlaylistItemFront(null, id, "", [], name, fullPath.replace("./static", ""));
 
     // On ajoute chaque musique à la BDD
     this.audiosDatabase.push(new AudioItem(id, name, fullPath.replace("./static", "")));
@@ -91,7 +91,7 @@ export default class AudioCRUD {
    * @param {string} path
    * @returns
    */
-  private static getFolder(fileName: string, path: string): PlaylistItemFilled {
+  private static getFolder(fileName: string, path: string): PlaylistItemFront {
     // On déclare nos variables
     let id: string;
     let name: string;
@@ -110,7 +110,7 @@ export default class AudioCRUD {
     }
 
     // On construit le dossier
-    const item: PlaylistItemFilled = new PlaylistItemFilled(null, id, "", this.readFolder(fullPath), name, fullPath.replace("./static", ""));
+    const item: PlaylistItemFront = new PlaylistItemFront(null, id, "", this.readFolder(fullPath), name, fullPath.replace("./static", ""));
 
     return item;
   }

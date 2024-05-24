@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import AudioItem from '~/models/models/audio-item';
 import PlaylistItemBack from '~/models/models/playlist-item-back';
-import PlaylistItemFilled from '~/models/models/playlist-item-filled';
+import PlaylistItemFront from '~/models/models/playlist-item-front';
 
 @Module({
   // Ne pas remplir le champ "name", car pour X raison ça cause l'erreur ERR_STORE_NOT_PROVIDED
@@ -10,7 +10,7 @@ import PlaylistItemFilled from '~/models/models/playlist-item-filled';
   namespaced: true
 })
 export default class AudioItemStore extends VuexModule {
-  public audioFolder: PlaylistItemFilled[] = [];
+  public audioFolder: PlaylistItemFront[] = [];
   public audiosDatabase: AudioItem[] = [];
 
   get getAudioFromDatabase(): (id: string) => AudioItem {
@@ -27,7 +27,7 @@ export default class AudioItemStore extends VuexModule {
 
   /** */
   @Mutation
-  initAudio(audioData: { audioFolder: PlaylistItemFilled[], audiosDatabase: AudioItem[] }): void {
+  initAudio(audioData: { audioFolder: PlaylistItemFront[], audiosDatabase: AudioItem[] }): void {
     // Audios ordered in corresponding subfolders
     this.audioFolder = audioData.audioFolder;
     // Every audio gathered in a single list

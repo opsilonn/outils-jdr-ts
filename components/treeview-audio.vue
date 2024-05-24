@@ -74,7 +74,7 @@ import RulesMixin from "~/mixins/rules";
 import AudioItem from "~/models/models/audio-item";
 import Playlist from "~/models/models/playlist";
 import PlaylistItemBack from "~/models/models/playlist-item-back";
-import PlaylistItemFilled from "~/models/models/playlist-item-filled";
+import PlaylistItemFront from "~/models/models/playlist-item-front";
 const playlist = namespace("playlist");
 const audioPlayer = namespace("audioPlayer");
 
@@ -82,7 +82,7 @@ const audioPlayer = namespace("audioPlayer");
   components: { draggable },
 })
 export default class TreeviewAudioComponent extends mixins(RulesMixin) {
-  @Prop({ required: false }) readonly audioFolder: PlaylistItemFilled[];
+  @Prop({ required: false }) readonly audioFolder: PlaylistItemFront[];
   @Prop({ required: false }) readonly idPlaylist: string;
   @Prop({ required: false }) readonly enableDnd: boolean;
   @Prop({ required: false }) readonly enableEdit: boolean;
@@ -98,7 +98,7 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
   public setAudio: (audio: AudioItem) => void;
 
   /** */
-  getItemIcon(item: PlaylistItemFilled, isOpen: boolean): string {
+  getItemIcon(item: PlaylistItemFront, isOpen: boolean): string {
     return item.children && 0 < item.children.length
       ? isOpen
         ? "mdi-folder-open"
@@ -113,26 +113,26 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
   }
 
   /** */
-  onClick(file: PlaylistItemFilled): void {
+  onClick(file: PlaylistItemFront): void {
     if ((!file.children || (file.children && file.children.length == 0)) && this.enablePlay && !file.isEditing) {
       this.setAudio(file);
     }
   }
 
   /** */
-  beginEdit(file: PlaylistItemFilled): void {
+  beginEdit(file: PlaylistItemFront): void {
     file.isEditing = true;
     file.form = false;
     file.surnameEdit = file.surname || "";
   }
 
   /** */
-  cancelEdit(file: PlaylistItemFilled): void {
+  cancelEdit(file: PlaylistItemFront): void {
     file.isEditing = false;
   }
 
   /** */
-  async editAudioFromPlaylist(file: PlaylistItemFilled): Promise<void> {
+  async editAudioFromPlaylist(file: PlaylistItemFront): Promise<void> {
     // If the form is valid
     const formId: string = `form_playlist_audio_${file.id}`;
     const form: any = this.$refs[formId];

@@ -1,6 +1,6 @@
 import PlaylistItemBack from "./playlist-item-back";
 
-export default class PlaylistItemFilled extends PlaylistItemBack {
+export default class PlaylistItemFront extends PlaylistItemBack {
     name: string;
     path: string;
     

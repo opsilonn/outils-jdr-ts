@@ -167,6 +167,7 @@ export default class PlaylistCRUD {
       surname: "",
     };
 
+    // If an id was given : we add to the corresponding folder
     // If no id was given : add to the root of the playlist
     if (!!idFolder) {
       let folder: PlaylistItemBack = null;
@@ -354,21 +355,20 @@ export default class PlaylistCRUD {
    * @param {*} folder
    * @returns
    */
-  static getFolderByItemId(id: string, folder: any): any {
-    for (let i = 0; i < folder.length; i++) {
-      const item = folder[i];
-
-      if ((!!item.children && item.id === id) || !!(item.children || []).find((el: any) => !el.children && el.id === id)) {
+  static getFolderByItemId(id: string, folder: PlaylistItemBack[]): any {
+    for (let item of folder) {
+      if (!item.children) {
+        continue;
+      }
+      if ((item.id === id) || item.children.find((el: PlaylistItemBack) => !el.children && el.id === id)) {
         return item;
       }
 
-      if (!!item.children) {
-        const returnedItem = this.getFolderByItemId(id, item.children);
-        if (!!returnedItem) {
-          return returnedItem;
-        }
+      const returnedItem = this.getFolderByItemId(id, item.children);
+      if (!!returnedItem) {
+        return returnedItem;
       }
-    }
+  }
   }
 
   /**
@@ -378,11 +378,9 @@ export default class PlaylistCRUD {
    * @returns
    */
   static getParentFolderByItemId(id: string, folder: PlaylistItemBack[]): PlaylistItemBack {
-    for (let i = 0; i < folder.length; i++) {
-      const item = folder[i];
-
+    for (let item of folder) {
       if (!!item.children) {
-        if (!!item.children.find((el: any) => el.id === id)) {
+        if (!!item.children.find((el: PlaylistItemBack) => el.id === id)) {
           return item;
         }
 

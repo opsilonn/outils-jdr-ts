@@ -55,7 +55,7 @@
           <v-icon class="zoom" color="grey lighten-1" v-text="'mdi-pencil'" @click.stop="beginEdit(item)" />
 
           <!-- Remove item -->
-          <v-icon class="zoom" color="grey lighten-1" v-text="'mdi-delete'" @click.stop="tryDeleteFromPlaylist(idPlaylist, item.id)" />
+          <v-icon class="zoom" color="grey lighten-1" v-text="'mdi-delete'" @click.stop="tryDeleteFromPlaylist(item.id)" />
         </div>
       </template>
     </v-treeview>
@@ -162,8 +162,8 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
   }
 
   /** */
-  public async tryDeleteFromPlaylist(idPlaylist: string, idItem: string): Promise<void> {
-    await this.deleteFromPlaylist({ idPlaylist: idPlaylist, idItem: idItem });
+  public async tryDeleteFromPlaylist(idItem: string): Promise<void> {
+    await this.deleteFromPlaylist({ idPlaylist: this.idPlaylist, idItem: idItem });
   }
 
   /** */

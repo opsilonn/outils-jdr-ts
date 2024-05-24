@@ -52,7 +52,7 @@
                         </v-list-item-content>
 
                         <v-list-item-action>
-                          <v-icon color="grey lighten-1" v-text="'mdi-dots-vertical'" @click="openDialogEdit(playlist.id)" />
+                          <v-icon color="grey lighten-1" v-text="'mdi-dots-vertical'" @click="openDialogEdit($event, playlist.id)" />
                         </v-list-item-action>
                       </v-list-item>
                     </div>
@@ -201,7 +201,8 @@ export default class AudioPage extends Vue {
     }
 
     /** */
-    openDialogEdit(id: string): void {
+    openDialogEdit(event: PointerEvent, id: string): void {
+      event.stopPropagation();
       this.currentPlaylistId = id;
       this.dialogPlaylist = true;
     }

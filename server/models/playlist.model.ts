@@ -172,7 +172,7 @@ export default class PlaylistCRUD {
     if (!!idFolder) {
       let folder: PlaylistItemBack = null;
       try {
-        folder = this.getFolderByItemId(idFolder, playlist.rootFolder);
+        folder = this.getFolder(idFolder, playlist.rootFolder);
       } catch (err: any) {
         throw new Error("Invalid folder ID !");
       }
@@ -218,7 +218,7 @@ export default class PlaylistCRUD {
 
     let folder: PlaylistItemBack;
     try {
-      folder = this.getParentFolderByItemId(idPlaylist, playlist.rootFolder);
+      folder = this.getParentFolder(idPlaylist, playlist.rootFolder);
     } catch (err: any) {
       throw new Error("Invalid params !");
     }
@@ -252,7 +252,7 @@ export default class PlaylistCRUD {
 
     let folder: any = null;
     try {
-      folder = this.getParentFolderByItemId(idItem, playlist.rootFolder);
+      folder = this.getParentFolder(idItem, playlist.rootFolder);
     } catch (err: any) {
       throw new Error("Invalid ID !");
     }
@@ -285,7 +285,7 @@ export default class PlaylistCRUD {
 
     // 1 - Remove from old location
     // We fetch the parent folder in the arborescence
-    const oldFolder: any = this.getParentFolderByItemId(idItem, playlist.rootFolder)?.children || playlist.rootFolder;
+    const oldFolder: any = this.getParentFolder(idItem, playlist.rootFolder)?.children || playlist.rootFolder;
     let index: number = oldFolder.findIndex((_: any) => _.id === idItem);
     if (index < 0) {
       throw new Error("Item not found !");
@@ -295,7 +295,7 @@ export default class PlaylistCRUD {
     oldFolder.splice(index, 1);
 
     // 2 - Add to new location
-    const newFolder: any = this.getParentFolderByItemId(idFolderToMoveTo, playlist.rootFolder)?.children || playlist.rootFolder;
+    const newFolder: any = this.getParentFolder(idFolderToMoveTo, playlist.rootFolder)?.children || playlist.rootFolder;
     newFolder.splice(newIndex, 0, item);
 
     // 3 - save and return playlist
@@ -355,7 +355,7 @@ export default class PlaylistCRUD {
    * @param {*} folder
    * @returns
    */
-  static getFolderByItemId(id: string, folder: PlaylistItemBack[]): any {
+  static getFolder(id: string, folder: PlaylistItemBack[]): any {
     for (let item of folder) {
       if (!item.children) {
         continue;
@@ -364,7 +364,7 @@ export default class PlaylistCRUD {
         return item;
       }
 
-      const returnedItem = this.getFolderByItemId(id, item.children);
+      const returnedItem = this.getFolder(id, item.children);
       if (!!returnedItem) {
         return returnedItem;
       }
@@ -377,14 +377,14 @@ export default class PlaylistCRUD {
    * @param {*} folder
    * @returns
    */
-  static getParentFolderByItemId(id: string, folder: PlaylistItemBack[]): PlaylistItemBack {
+  static getParentFolder(id: string, folder: PlaylistItemBack[]): PlaylistItemBack {
     for (let item of folder) {
       if (!!item.children) {
         if (!!item.children.find((el: PlaylistItemBack) => el.id === id)) {
           return item;
         }
 
-        const returnedItem = this.getFolderByItemId(id, item.children);
+        const returnedItem = this.getFolder(id, item.children);
         if (!!returnedItem) {
           return returnedItem;
         }

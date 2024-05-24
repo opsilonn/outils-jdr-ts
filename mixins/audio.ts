@@ -1,4 +1,3 @@
-// Imports
 import { Component, Vue } from 'nuxt-property-decorator';
 import PlaylistItemBack from '~/models/models/playlist-item-back';
 

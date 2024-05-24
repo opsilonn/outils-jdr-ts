@@ -47,7 +47,6 @@
 </template>
 
 <script lang="ts">
-// Imports
 import DraggableTimerComponent from "@/components/draggable-timer.vue";
 import { EnumRouter } from "@/models/enums";
 import { Component, Vue } from 'nuxt-property-decorator';

@@ -38,7 +38,6 @@
 </template>
 
 <script lang="ts">
-// Imports
 import { Component, Prop, Watch, mixins, namespace } from "nuxt-property-decorator";
 import RulesMixin from "~/mixins/rules";
 import Playlist from "~/models/models/playlist";
@@ -67,7 +66,6 @@ export default class DialogPlaylistDataComponent extends mixins(RulesMixin) {
   @Watch("dialog")
   dialogChanged(): void {
     if (this.dialog) {
-      // get the Playlist
       this.playlist = this.getPlaylistById(this.idPlaylist);
       this.playlistName = this.playlist?.name || "";
     }
@@ -87,19 +85,16 @@ export default class DialogPlaylistDataComponent extends mixins(RulesMixin) {
   public async remove(): Promise<void> {
     await this.deletePlaylist(this.idPlaylist);
     this.$emit("close-dialog");
-    // this.$refs.form.reset();
   }
 
   /** */
   public async action(): Promise<void> {
-    // If the form is valid
-    // if (this.$refs.form.validate()) {
+
     if (this.isNewPlaylist) {
       this.add();
     } else {
       this.update();
     }
-    // }
   }
 
   /** */
@@ -113,7 +108,6 @@ export default class DialogPlaylistDataComponent extends mixins(RulesMixin) {
     const playlist: Playlist = await this.createPlaylist(newPlaylist);
     if (!!playlist) {
       this.$emit("close-dialog");
-      // this.$refs.form.reset();
     }
   }
 
@@ -128,7 +122,6 @@ export default class DialogPlaylistDataComponent extends mixins(RulesMixin) {
     const playlist: Playlist = await this.updatePlaylist(editedPlaylist);
     if (!!playlist) {
       this.$emit("close-dialog");
-      // this.$refs.form.reset();
     }
   }
 }

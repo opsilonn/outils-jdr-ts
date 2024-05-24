@@ -16,7 +16,6 @@
 </template>
 
 <script lang="ts">
-// Imports
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component({})

@@ -16,7 +16,6 @@
 </template>
 
 <script lang="ts">
-// Imports
 import LayoutAppBar from "@/components/layout-appbar.vue";
 import LayoutFooter from "@/components/layout-footer.vue";
 import { Component, Vue, Watch } from "vue-property-decorator";

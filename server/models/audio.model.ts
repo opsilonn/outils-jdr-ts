@@ -33,7 +33,6 @@ export default class AudioCRUD {
     const folder: PlaylistItemBack[] = [];
 
     try {
-      // We get all the files
       const filesName = fs.readdirSync(path);
 
       // We first add the folders
@@ -59,7 +58,6 @@ export default class AudioCRUD {
    * @returns
    */
   private static getItem(fileName: string, path: string): PlaylistItemBack {
-    // On déclare nos variables
     let id: string;
     let name: string;
     let fullPath: string;
@@ -76,16 +74,6 @@ export default class AudioCRUD {
       fs.renameSync(`${path}/${fileName}`, fullPath);
     }
 
-    // On construit l'audio
-    const item: PlaylistItemBack = {
-      children: [],
-      id: null,
-      idAudio: id,
-      name: name,
-      path: fullPath.replace("./static", ""),
-      surname: "",
-    } as PlaylistItemBack;
-
     // On ajoute chaque musique à la BDD
     this.audiosDatabase.push({
       id: id,
@@ -93,7 +81,14 @@ export default class AudioCRUD {
       path: fullPath.replace("./static", "")
     });
 
-    return item;
+    return {
+      children: [],
+      id: null,
+      idAudio: id,
+      name: name,
+      path: fullPath.replace("./static", ""),
+      surname: "",
+    };
   }
 
   /**
@@ -103,7 +98,6 @@ export default class AudioCRUD {
    * @returns
    */
   private static getFolder(fileName: string, path: string): PlaylistItemBack {
-    // On déclare nos variables
     let id: string;
     let name: string;
     let fullPath: string;
@@ -120,16 +114,13 @@ export default class AudioCRUD {
       fs.renameSync(`${path}/${fileName}`, fullPath);
     }
 
-    // On construit le dossier
-    const item: PlaylistItemBack = {
+    return {
       children: this.readFolder(fullPath),
       id: null,
       idAudio: id,
       name: name,
       path: fullPath.replace("./static", ""),
-      surname: "",
-    } as PlaylistItemBack;
-
-    return item;
+      surname: ""
+    };
   }
 }

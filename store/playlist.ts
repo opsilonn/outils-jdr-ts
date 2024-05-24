@@ -170,10 +170,8 @@ export default class PlaylistStore extends VuexModule {
   @Action
   async savePlaylist(idPlaylist: string): Promise<boolean> {
     const savedPlaylist: Playlist = (await axios.put(`/api/playlist/${idPlaylist}/save`)).data;
-    console.log('avant');
     PlaylistStore.FILL_PLAYLIST_ITEMS(this.database, savedPlaylist.rootFolder);
     this.context.commit("ADD_PLAYLIST", savedPlaylist);
-    console.log('après');
     return true;
   }
 

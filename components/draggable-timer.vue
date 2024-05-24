@@ -48,7 +48,6 @@
 </template>
 
 <script lang="ts">
-// Imports
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({})

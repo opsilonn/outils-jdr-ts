@@ -66,7 +66,6 @@
 </template>
 
 <script lang="ts">
-// Imports
 import { Component, Prop, mixins, namespace } from "nuxt-property-decorator";
 import draggable from "vuedraggable";
 import EventBus from "~/EventBus";
@@ -134,12 +133,11 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
 
   /** */
   async editAudioFromPlaylist(file: PlaylistItemFront): Promise<void> {
-    // If the form is valid
     const formId: string = `form_playlist_audio_${file.id}`;
     const form: any = this.$refs[formId];
 
     if (form.validate()) {
-      // We update the playlist if the surname is different
+      // if the name doesn't change, no call is made
       if (file.surname !== file.surnameEdit) {
         const data: { idPlaylist: string; playlistItem: PlaylistItemBack } = {
           idPlaylist: this.idPlaylist,
@@ -155,7 +153,6 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
         await this.updatePlaylistAudio(data);
       }
 
-      // We first edit the object
       file.isEditing = false;
       file.surname = file.surnameEdit;
     }

@@ -70,7 +70,6 @@
 </template>
 
 <script lang="ts">
-// Imports
 import { Component, Prop, Watch, mixins, namespace } from "nuxt-property-decorator";
 import draggable from "vuedraggable";
 import EventBus from "~/EventBus";

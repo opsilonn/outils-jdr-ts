@@ -1,4 +1,3 @@
-// Imports
 import { Howl } from "howler";
 import { Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import AudioCategory from "~/models/models/audio-category";
@@ -21,10 +20,7 @@ export default class AudioPlayerStore extends VuexModule {
   /** */
   @Mutation
   setAudio(audio: AudioItem): void {
-    // We get the category's index
     const category: AudioCategory = this.audioCategories.find((tab) => audio.path.split("/")[INDEX_OF_CATEGORY_NAME].includes(tab.title));
-
-    // If not found : ERROR
     if (!category) {
       alert("Music not found !");
       return;
@@ -35,7 +31,6 @@ export default class AudioPlayerStore extends VuexModule {
       category.howl.pause();
     }
 
-    // We set some values
     category.audio = audio;
     category.isPlaying = true;
     category.howl = new Howl({
@@ -70,10 +65,7 @@ export default class AudioPlayerStore extends VuexModule {
    */
   @Mutation
   setVolume(id: number): void {
-    // We get the category
     const category: AudioCategory = this.audioCategories.find((_) => _.id === id);
-
-    // If a file, is loaded, we set the volume accordingly
     if (!!category?.howl) {
       category.howl.volume(category.volume);
     }
@@ -85,10 +77,7 @@ export default class AudioPlayerStore extends VuexModule {
    */
   @Mutation
   setPlayOrPause(id: number): void {
-    // We get the category
     const category: AudioCategory = this.audioCategories.find((_) => _.id === id);
-
-    // If a file, is loaded, we play or pause it accordingly
     if (!!category?.howl) {
       category.isPlaying = !category.isPlaying;
       if (category.isPlaying) {
@@ -105,12 +94,8 @@ export default class AudioPlayerStore extends VuexModule {
    */
   @Mutation
   setLoop(id: number): void {
-    // We get the category
     const category: AudioCategory = this.audioCategories.find((_) => _.id === id);
-
     category.isLooping = !category.isLooping;
-
-    // If a file, is loaded, we (dis)enable the loop it accordingly
     if (!!category?.howl) {
       category.howl.loop(category.isLooping);
     }

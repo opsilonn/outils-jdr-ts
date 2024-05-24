@@ -105,7 +105,6 @@
 </template>
 
 <script lang="ts">
-// Imports
 import { Component, Vue, Watch, namespace } from "nuxt-property-decorator";
 import draggable from "vuedraggable";
 import DialogPlaylistContent from "~/components/dialog-playlist-content.vue";
@@ -235,10 +234,7 @@ export default class AudioPage extends Vue {
 
   /** Whenever the page is exited : remove all audio tracks */
   beforeRouteLeave(to: any, from: any, next: any): void {
-    // Disable all audio tracks
     this.stopAllAudioTracks();
-
-    // Go to next page
     return next();
   }
 
@@ -247,7 +243,6 @@ export default class AudioPage extends Vue {
   }
 
   transition(to: any, from: any) {
-    // transition: "slide-bottom",
     if (!from) {
       return 'slide-left'
     }
@@ -269,4 +264,3 @@ export default class AudioPage extends Vue {
   display: none;
 }
 </style>
-~/models/models/playlist-item-back

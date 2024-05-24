@@ -15,14 +15,12 @@
 </template>
 
 <script lang="ts">
-// Imports
 import { EnumRouter } from "@/models/enums";
 import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({})
 export default class DefaultLayout extends Vue {
   EnumRouter = EnumRouter;
-  // transition: "slide-bottom"
 
   head() {
     return { title: "index" };

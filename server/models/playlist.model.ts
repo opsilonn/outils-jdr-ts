@@ -8,8 +8,8 @@ import PlaylistItemBack from "../../models/models/playlist-item-back";
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
-const pathFile = path.join(__dirname, "../data/playlists.json");
-const pathFileSave = path.join(__dirname, "../data/playlists_save.json");
+const PATH_FILE = path.join(__dirname, "../data/playlists.json");
+const PATH_FILE_SAVE = path.join(__dirname, "../data/playlists_save.json");
 
 export default class PlaylistCRUD {
   /**
@@ -32,7 +32,7 @@ export default class PlaylistCRUD {
    * @returns {Promise<Playlist>}
    */
   static async getSaved(id: string): Promise<Playlist> {
-    const playlists: Playlist[] = await this.getAll(pathFileSave);
+    const playlists: Playlist[] = await this.getAll(PATH_FILE_SAVE);
 
     let playlist: Playlist = playlists.find((p: Playlist) => p.id === id);
     if (!playlist) {
@@ -48,7 +48,7 @@ export default class PlaylistCRUD {
   /**
    * @returns {Promise<Playlist[]>}
    */
-  static async getAll(path: string = pathFile):Promise<Playlist[]> {
+  static async getAll(path: string = PATH_FILE):Promise<Playlist[]> {
     if (!fs.existsSync(path)) {
       writeFile(path, JSON.stringify([], null, 2), "utf8");
       return [];
@@ -73,7 +73,7 @@ export default class PlaylistCRUD {
 
     let playlists: Playlist[] = await this.getAll();
     playlists.push(playlist);
-    writeFile(pathFile, JSON.stringify(playlists, null, 2), "utf8");
+    writeFile(PATH_FILE, JSON.stringify(playlists, null, 2), "utf8");
 
     return playlist;
   }
@@ -99,7 +99,7 @@ export default class PlaylistCRUD {
       playlist.total = playlistReceived.total;
     }
 
-    writeFile(pathFile, JSON.stringify(playlists, null, 2), "utf8");
+    writeFile(PATH_FILE, JSON.stringify(playlists, null, 2), "utf8");
 
     return playlist;
   }
@@ -120,7 +120,7 @@ export default class PlaylistCRUD {
     playlists.splice(oldIndex, 1);
     playlists.splice(newIndex, 0, playlist);
 
-    writeFile(pathFile, JSON.stringify(playlists, null, 2), "utf8");
+    writeFile(PATH_FILE, JSON.stringify(playlists, null, 2), "utf8");
 
     return playlists;
   }
@@ -137,7 +137,7 @@ export default class PlaylistCRUD {
     }
 
     playlists.splice(index, 1);
-    writeFile(pathFile, JSON.stringify(playlists, null, 2), "utf8");
+    writeFile(PATH_FILE, JSON.stringify(playlists, null, 2), "utf8");
   }
 
   /**
@@ -149,7 +149,7 @@ export default class PlaylistCRUD {
    * @returns {Promise<Playlist>}
    */
   static async addPlaylistItem(idPlaylist: string, audioItem: AudioItem, idFolder: string, index: number) {
-    let playlistsSaved: Playlist[] = await this.getAll(pathFileSave);
+    let playlistsSaved: Playlist[] = await this.getAll(PATH_FILE_SAVE);
     let playlist: Playlist = playlistsSaved.find((p: Playlist) => p.id === idPlaylist);
     
     // If not found : We get the source one, from the "actual" database
@@ -196,7 +196,7 @@ export default class PlaylistCRUD {
     
     playlist.total += 1;
 
-    writeFile(pathFileSave, JSON.stringify(playlistsSaved, null, 2), "utf8");
+    writeFile(PATH_FILE_SAVE, JSON.stringify(playlistsSaved, null, 2), "utf8");
 
     return playlist;
   }
@@ -208,7 +208,7 @@ export default class PlaylistCRUD {
    * @returns {Promise<Playlist>}
    */
   static async updatePlaylistItem(idPlaylist: string, idItem: string, playlistItem: PlaylistItemBack): Promise<Playlist> {
-    let playlists: Playlist[] = await this.getAll(pathFileSave);
+    let playlists: Playlist[] = await this.getAll(PATH_FILE_SAVE);
     let playlist: Playlist = playlists.find((p: Playlist) => p.id === idPlaylist);
 
     // If not found : We get the source one, from the "actual" database
@@ -233,7 +233,7 @@ export default class PlaylistCRUD {
     }
     itemToEdit.surname = playlistItem.surname || "";
 
-    writeFile(pathFileSave, JSON.stringify(playlists, null, 2), "utf8");
+    writeFile(PATH_FILE_SAVE, JSON.stringify(playlists, null, 2), "utf8");
     return playlist;
   }
 
@@ -242,7 +242,7 @@ export default class PlaylistCRUD {
    * @param {string} idItem
    */
   static async deleteItem(idPlaylist: string, idItem: string): Promise<Playlist> {
-    let playlists: Playlist[] = await this.getAll(pathFileSave);
+    let playlists: Playlist[] = await this.getAll(PATH_FILE_SAVE);
     let playlist: Playlist = playlists.find((p: Playlist) => p.id === idPlaylist);
 
     // If not found : We get the source one, from the "actual" database
@@ -263,7 +263,7 @@ export default class PlaylistCRUD {
     arr.splice(indexFile, 1);
 
     playlist.total--;
-    writeFile(pathFileSave, JSON.stringify(playlists, null, 2), "utf8");
+    writeFile(PATH_FILE_SAVE, JSON.stringify(playlists, null, 2), "utf8");
 
     return playlist;
   }
@@ -275,7 +275,7 @@ export default class PlaylistCRUD {
    * @param {Number} newIndex
    */
   static async movePlaylistItem(idPlaylist: string, idItem: string, idFolderToMoveTo: string, newIndex: number): Promise<Playlist> {
-    let playlists: Playlist[] = await this.getAll(pathFileSave);
+    let playlists: Playlist[] = await this.getAll(PATH_FILE_SAVE);
     let playlist: Playlist= playlists.find((p: Playlist) => p.id === idPlaylist);
 
     // If not found : We get the source one, from the "actual" database
@@ -299,7 +299,7 @@ export default class PlaylistCRUD {
     newFolder.splice(newIndex, 0, item);
 
     // 3 - save and return playlist
-    writeFile(pathFileSave, JSON.stringify(playlists, null, 2), "utf8");
+    writeFile(PATH_FILE_SAVE, JSON.stringify(playlists, null, 2), "utf8");
 
     return playlist;
   }
@@ -310,7 +310,7 @@ export default class PlaylistCRUD {
    * @returns {Promise<Playlist>}
    */
   static savePlaylist(idPlaylist: string): Promise<Playlist> {
-    return this.savePlaylistFromFolderAToFolderB(idPlaylist, pathFileSave, pathFile);
+    return this.savePlaylistFromFolderAToFolderB(idPlaylist, PATH_FILE_SAVE, PATH_FILE);
   }
 
   /**
@@ -319,7 +319,7 @@ export default class PlaylistCRUD {
    * @returns {Promise<Playlist>}
    */
   static resetPlaylist(idPlaylist: string): Promise<Playlist> {
-    return this.savePlaylistFromFolderAToFolderB(idPlaylist, pathFile, pathFileSave);
+    return this.savePlaylistFromFolderAToFolderB(idPlaylist, PATH_FILE, PATH_FILE_SAVE);
   }
 
   /**

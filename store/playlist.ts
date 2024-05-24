@@ -21,7 +21,7 @@ export default class PlaylistStore extends VuexModule {
   database: AudioItem[] = [];
   
   get getPlaylistById(): (id: string) => Playlist {
-    return (id: string) => this.playlists.find((_) => _.id === id);
+    return (id: string) => this.playlists.find((playlist: Playlist) => playlist.id === id);
   }
 
   // Why forEach-loops, if I modify the index ?
@@ -57,7 +57,7 @@ export default class PlaylistStore extends VuexModule {
    */
   @Mutation
    private ADD_PLAYLIST(playlist: Playlist): void {
-    const index: number = this.playlists.findIndex((_) => _.id === playlist.id);
+    const index: number = this.playlists.findIndex((p: Playlist) => p.id === playlist.id);
     if (index < 0) {
       this.playlists.push(playlist);
     } else {
@@ -85,7 +85,7 @@ export default class PlaylistStore extends VuexModule {
    */
   @Mutation
   DELETE_PLAYLIST(id: string): void {
-    const index: number = this.playlists.findIndex((_: Playlist) => _.id === id);
+    const index: number = this.playlists.findIndex((playlist: Playlist) => playlist.id === id);
     if (index >= 0) {
       this.playlists.splice(index, 1);
     }

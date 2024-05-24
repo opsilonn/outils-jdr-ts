@@ -151,7 +151,7 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
   async tryMoveItemWithinPlaylist(event: any): Promise<void> {
     const folder: PlaylistItemBack = this.getFolderContainingPlaylistItem(event.to.id, this.savedPlaylist.rootFolder);
     const idFolderToMoveTo: string = folder?.id || "";
-    const newIndex: number = (folder?.children || this.savedPlaylist.rootFolder).findIndex((_: any) => _.id === event.to.id);
+    const newIndex: number = (folder?.children || this.savedPlaylist.rootFolder).findIndex((item: PlaylistItemBack) => item.id === event.to.id);
 
     await this.moveItemWithinPlaylist({
       idPlaylist: this.idPlaylist,

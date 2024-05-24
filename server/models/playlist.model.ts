@@ -19,7 +19,7 @@ export default class PlaylistCRUD {
   static async get(id: string): Promise<Playlist> {
     const playlists: Playlist[] = await this.getAll();
 
-    const playlist: Playlist = playlists.find((_: Playlist) => _.id === id);
+    const playlist: Playlist = playlists.find((p: Playlist) => p.id === id);
     if (!playlist) {
       throw new Error("Playlist not found !");
     }
@@ -34,7 +34,7 @@ export default class PlaylistCRUD {
   static async getSaved(id: string): Promise<Playlist> {
     const playlists: Playlist[] = await this.getAll(pathFileSave);
 
-    let playlist: Playlist = playlists.find((_: Playlist) => _.id === id);
+    let playlist: Playlist = playlists.find((p: Playlist) => p.id === id);
     if (!playlist) {
       playlist = await this.get(id);
       if (!playlist) {
@@ -87,7 +87,7 @@ export default class PlaylistCRUD {
   static async update(id: string, playlistReceived: Playlist): Promise<Playlist> {
     let playlists: Playlist[] = await this.getAll();
 
-    const playlist: Playlist = playlists.find((_) => _.id === id);
+    const playlist: Playlist = playlists.find((p: Playlist) => p.id === id);
 
     if (!playlist) {
       throw new Error("Playlist not found !");
@@ -131,7 +131,7 @@ export default class PlaylistCRUD {
   static async delete(id: string): Promise<void> {
     let playlists: Playlist[] = await this.getAll();
 
-    const index: number = playlists.findIndex((_) => _.id === id);
+    const index: number = playlists.findIndex((playlist: Playlist) => playlist.id === id);
     if (index <= -1) {
       throw new Error("Playlist not found !");
     }
@@ -150,7 +150,7 @@ export default class PlaylistCRUD {
    */
   static async addPlaylistItem(idPlaylist: string, audioItem: AudioItem, idFolder: string, index: number) {
     let playlistsSaved: Playlist[] = await this.getAll(pathFileSave);
-    let playlist: Playlist = playlistsSaved.find((_) => _.id === idPlaylist);
+    let playlist: Playlist = playlistsSaved.find((p: Playlist) => p.id === idPlaylist);
     
     // If not found : We get the source one, from the "actual" database
     if (!playlist) {
@@ -209,7 +209,7 @@ export default class PlaylistCRUD {
    */
   static async updatePlaylistItem(idPlaylist: string, idItem: string, playlistItem: PlaylistItemBack): Promise<Playlist> {
     let playlists: Playlist[] = await this.getAll(pathFileSave);
-    let playlist: Playlist = playlists.find((_) => _.id === idPlaylist);
+    let playlist: Playlist = playlists.find((p: Playlist) => p.id === idPlaylist);
 
     // If not found : We get the source one, from the "actual" database
     if (!playlist) {
@@ -243,7 +243,7 @@ export default class PlaylistCRUD {
    */
   static async deleteItem(idPlaylist: string, idItem: string): Promise<Playlist> {
     let playlists: Playlist[] = await this.getAll(pathFileSave);
-    let playlist: Playlist = playlists.find((_) => _.id === idPlaylist);
+    let playlist: Playlist = playlists.find((p: Playlist) => p.id === idPlaylist);
 
     // If not found : We get the source one, from the "actual" database
     if (!playlist) {
@@ -276,7 +276,7 @@ export default class PlaylistCRUD {
    */
   static async movePlaylistItem(idPlaylist: string, idItem: string, idFolderToMoveTo: string, newIndex: number): Promise<Playlist> {
     let playlists: Playlist[] = await this.getAll(pathFileSave);
-    let playlist: Playlist= playlists.find((_) => _.id === idPlaylist);
+    let playlist: Playlist= playlists.find((p: Playlist) => p.id === idPlaylist);
 
     // If not found : We get the source one, from the "actual" database
     if (!playlist) {
@@ -285,8 +285,8 @@ export default class PlaylistCRUD {
 
     // 1 - Remove from old location
     // We fetch the parent folder in the arborescence
-    const oldFolder: any = this.getParentFolder(idItem, playlist.rootFolder)?.children || playlist.rootFolder;
-    let index: number = oldFolder.findIndex((_: any) => _.id === idItem);
+    const oldFolder: PlaylistItemBack[] = this.getParentFolder(idItem, playlist.rootFolder)?.children || playlist.rootFolder;
+    let index: number = oldFolder.findIndex((p: PlaylistItemBack) => p.id === idItem);
     if (index < 0) {
       throw new Error("Item not found !");
     }
@@ -330,13 +330,13 @@ export default class PlaylistCRUD {
    * @returns {Promise<Playlist>}
    */
   static async savePlaylistFromFolderAToFolderB(idPlaylist: string, pathFrom: string, pathTo: string) {
-    const playlistToSave: Playlist = (await this.getAll(pathFrom)).find((_) => _.id === idPlaylist);
+    const playlistToSave: Playlist = (await this.getAll(pathFrom)).find((playlist: Playlist) => playlist.id === idPlaylist);
     if (!playlistToSave) {
       throw new Error("Playlist not found !");
     }
 
     let playlists: Playlist[] = await this.getAll(pathTo);
-    const index: number = playlists.findIndex((_) => _.id === idPlaylist);
+    const index: number = playlists.findIndex((playlist: Playlist) => playlist.id === idPlaylist);
     if (index < 0) {
       throw new Error("Playlist not found !");
     }
@@ -355,7 +355,7 @@ export default class PlaylistCRUD {
    * @param {*} folder
    * @returns
    */
-  static getFolder(id: string, folder: PlaylistItemBack[]): any {
+  static getFolder(id: string, folder: PlaylistItemBack[]): PlaylistItemBack {
     for (let item of folder) {
       if (!item.children) {
         continue;

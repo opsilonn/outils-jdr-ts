@@ -67,9 +67,9 @@ export default class FooterAudioComponent extends Vue {
 
   /** */
   get audioCategoriesVolumes(): { id: number, volume: number }[] {
-    return this.audioCategories.map((_: AudioCategory) => ({
-      id: _.id,
-      volume: _.volume,
+    return this.audioCategories.map(( category: AudioCategory) => ({
+      id: category.id,
+      volume: category.volume,
     }));
   }
 

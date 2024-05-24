@@ -65,7 +65,7 @@ export default class AudioPlayerStore extends VuexModule {
    */
   @Mutation
   setVolume(id: number): void {
-    const category: AudioCategory = this.audioCategories.find((_) => _.id === id);
+    const category: AudioCategory = this.audioCategories.find((c: AudioCategory) => c.id === id);
     if (!!category?.howl) {
       category.howl.volume(category.volume);
     }
@@ -77,7 +77,7 @@ export default class AudioPlayerStore extends VuexModule {
    */
   @Mutation
   setPlayOrPause(id: number): void {
-    const category: AudioCategory = this.audioCategories.find((_) => _.id === id);
+    const category: AudioCategory = this.audioCategories.find((c: AudioCategory) => c.id === id);
     if (!!category?.howl) {
       category.isPlaying = !category.isPlaying;
       if (category.isPlaying) {
@@ -94,7 +94,7 @@ export default class AudioPlayerStore extends VuexModule {
    */
   @Mutation
   setLoop(id: number): void {
-    const category: AudioCategory = this.audioCategories.find((_) => _.id === id);
+    const category: AudioCategory = this.audioCategories.find((c: AudioCategory) => c.id === id);
     category.isLooping = !category.isLooping;
     if (!!category?.howl) {
       category.howl.loop(category.isLooping);

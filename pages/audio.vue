@@ -157,7 +157,7 @@ export default class AudioPage extends Vue {
 
   /** */
   get playlistIds(): string[] {
-    return this.playlists.map((_: Playlist) => _.id);
+    return this.playlists.map((playlist: Playlist) => playlist.id);
   }
 
   /** Allows to select the latest playlist if one is added, or deselect if one is deleted */

@@ -14,7 +14,7 @@ export default class CompetenceCRUD {
    */
   static async get(id: number): Promise<Competence> {
     const competences: Competence[] = await this.getAll();
-    const competence: Competence | undefined = competences.find((_: Competence) => _.id === id);
+    const competence: Competence = competences.find((comp: Competence) => comp.id === id);
     if (!competence) {
       throw new Error("Instance not found !");
     }
@@ -37,7 +37,7 @@ export default class CompetenceCRUD {
   static async add(competenceReceived: Competence): Promise<Competence> {
     const competences: Competence[] = await this.getAll();
 
-    const maxId = Math.max.apply(null, competences.map((_) => _.id));
+    const maxId = Math.max.apply(null, competences.map((competence: Competence) => competence.id));
     competenceReceived.id = maxId + 1;
 
     competences.push(competenceReceived);
@@ -55,7 +55,7 @@ export default class CompetenceCRUD {
   static async update(id: number, competenceReceived: Competence): Promise<Competence> {
     let competences = await this.getAll();
 
-    const index = competences.findIndex((_) => _.id === id);
+    const index = competences.findIndex((competence: Competence) => competence.id === id);
     if (index <= -1) {
       throw new Error("Instance not found !");
     }
@@ -74,7 +74,7 @@ export default class CompetenceCRUD {
   static async delete(id: number) {
     let competences: Competence[] = await this.getAll();
 
-    const index: number = competences.findIndex((_) => _.id === id);
+    const index: number = competences.findIndex((competence: Competence) => competence.id === id);
     if (index <= -1) {
       throw new Error("Instance not found !");
     }

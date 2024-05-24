@@ -14,7 +14,7 @@ export default class AudioItemStore extends VuexModule {
   public audiosDatabase: AudioItem[] = [];
 
   get getAudioFromDatabase(): (id: string) => AudioItem {
-    return (id: string) => this.audiosDatabase.find((_) => _.id === id);
+    return (id: string) => this.audiosDatabase.find((item: AudioItem) => item.id === id);
   }
 
   /**
@@ -22,7 +22,7 @@ export default class AudioItemStore extends VuexModule {
    * @param {String} name Title of the folder to find
    */
   get getAudioFolderByTitle(): (name: string) => PlaylistItemBack[] {
-    return (name: string) => this.audioFolder.find((_) => _.name === name)?.children || [];
+    return (name: string) => this.audioFolder.find((item: AudioItem) => item.name === name)?.children || [];
   }
 
   /** */

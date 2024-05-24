@@ -104,10 +104,8 @@ export default class AudioPlayerStore extends VuexModule {
   /** Stops all tracks that are being played */
   @Mutation
   stopAllAudioTracks(): void {
-    this.audioCategories.forEach((category: AudioCategory) => {
-      if (!!category?.howl) {
-        category.howl.pause();
-      }
-    });
+    this.audioCategories
+      .filter((category: AudioCategory) => !!category?.howl)
+      .forEach((category: AudioCategory) => category.howl.pause());
   }
 };

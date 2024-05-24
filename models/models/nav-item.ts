@@ -1,11 +1,5 @@
-export default class NavItem {
-    title: string;
+export default interface NavItem {
     route: string;
     src: string;
-
-    constructor(title: string, route: string, src: string) {
-        this.title = title;
-        this.route = route;
-        this.src = src;
-    }
+    title: string;
 }

@@ -11,10 +11,11 @@ const INDEX_OF_CATEGORY_NAME = 2;
   namespaced: true
 })
 export default class AudioPlayerStore extends VuexModule {
+  private DEFAULT_VOLUME = 0.75;
   public audioCategories: AudioCategory[] = [
-    new AudioCategory(1, "Ambiance", "mdi-city-variant-outline"),
-    new AudioCategory(2, "Musique", "mdi-music-note"),
-    new AudioCategory(3, "SFX", "mdi-ear-hearing")
+    { id: 1, title: "Ambiance", icon: "mdi-city-variant-outline", audio: {}, howl: undefined, isPlaying: false, isLooping: false, hasError: false, volume: this.DEFAULT_VOLUME },
+    { id: 2, title: "Musique", icon: "mdi-music-note", audio: {}, howl: undefined, isPlaying: false, isLooping: false, hasError: false, volume: this.DEFAULT_VOLUME },
+    { id: 3, title: "SFX", icon: "mdi-ear-hearing", audio: {}, howl: undefined, isPlaying: false, isLooping: false, hasError: false, volume: this.DEFAULT_VOLUME },
   ];
 
   /** */

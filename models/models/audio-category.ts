@@ -1,6 +1,6 @@
 import { Howl } from "howler";
 
-export default class AudioCategory {
+export default interface AudioCategory {
     id: number;
     title: string;
     icon: string;
@@ -10,16 +10,4 @@ export default class AudioCategory {
     isLooping: boolean;
     hasError: boolean;
     volume: number;
-
-    constructor(id: number, title: string, icon: string) {
-        this.id = id;
-        this.title = title;
-        this.icon = icon;
-        this.audio = {};
-        this.howl = undefined;
-        this.isPlaying = false;
-        this.isLooping = false;
-        this.hasError = false;
-        this.volume = 0.75;
-    }
 }

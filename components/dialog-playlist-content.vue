@@ -79,7 +79,7 @@ import AudioMixin from "~/mixins/audio";
 import AudioCategory from "~/models/models/audio-category";
 import AudioItem from "~/models/models/audio-item";
 import Playlist from "~/models/models/playlist";
-import PlaylistItem from "~/models/models/playlist-item";
+import PlaylistItemBack from "~/models/models/playlist-item-back";
 const playlist = namespace("playlist");
 const audioItem = namespace("audioItem");
 const audioPlayer = namespace("audioPlayer");
@@ -101,7 +101,7 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
   @audioPlayer.State
   public audioCategories: AudioCategory[];
   @audioItem.Getter
-  public getAudioFolderByTitle: (name: string) => PlaylistItem[];
+  public getAudioFolderByTitle: (name: string) => PlaylistItemBack[];
   @playlist.State
   public savedPlaylist: Playlist;
   @playlist.Action
@@ -135,7 +135,7 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
   /** */
   async addFile(event: any): Promise<void> {
     const audioToAdd: AudioItem = this.getAudioFromDatabase(event.from.id);
-    const playlistItemNextTo: PlaylistItem = this.getPlaylistItemById(event.to.id, this.savedPlaylist.rootFolder);
+    const playlistItemNextTo: PlaylistItemBack = this.getPlaylistItemById(event.to.id, this.savedPlaylist.rootFolder);
     const index = Math.max(0, this.savedPlaylist.rootFolder.indexOf(playlistItemNextTo));
 
     await this.addAudioToPlaylist({
@@ -150,7 +150,7 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
 
   /** */
   async tryMoveItemWithinPlaylist(event: any): Promise<void> {
-    const folder: PlaylistItem = this.getFolderContainingPlaylistItemById(event.to.id, this.savedPlaylist.rootFolder);
+    const folder: PlaylistItemBack = this.getFolderContainingPlaylistItemById(event.to.id, this.savedPlaylist.rootFolder);
     const idFolderToMoveTo: string = folder?.id || "";
     const newIndex: number = (folder?.children || this.savedPlaylist.rootFolder).findIndex((_: any) => _.id === event.to.id);
 
@@ -197,3 +197,4 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
   display: none;
 }
 </style>
+~/models/models/playlist-item-back

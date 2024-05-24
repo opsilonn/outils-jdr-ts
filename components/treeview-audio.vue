@@ -73,7 +73,7 @@ import EventBus from "~/EventBus";
 import RulesMixin from "~/mixins/rules";
 import AudioItem from "~/models/models/audio-item";
 import Playlist from "~/models/models/playlist";
-import PlaylistItem from "~/models/models/playlist-item";
+import PlaylistItemBack from "~/models/models/playlist-item-back";
 import PlaylistItemFilled from "~/models/models/playlist-item-filled";
 const playlist = namespace("playlist");
 const audioPlayer = namespace("audioPlayer");
@@ -91,7 +91,7 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
   @playlist.Getter
   public getPlaylistById: () => Playlist;
   @playlist.Action
-  public updatePlaylistAudio: ({ idPlaylist, playlistItem }: { idPlaylist: string; playlistItem: PlaylistItem }) => Promise<void>;
+  public updatePlaylistAudio: ({ idPlaylist, playlistItem }: { idPlaylist: string; playlistItem: PlaylistItemBack }) => Promise<void>;
   @playlist.Action
   public deleteFromPlaylist: (paramsReceived: { idPlaylist: string; idItem: string }) => Promise<void>;
   @audioPlayer.Mutation
@@ -142,7 +142,7 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
       if (file.surname !== file.surnameEdit) {
         const data: any = {
           idPlaylist: this.idPlaylist,
-          playlistItem: new PlaylistItem(file.id, file.idAudio, file.surnameEdit, []),
+          playlistItem: new PlaylistItemBack(file.id, file.idAudio, file.surnameEdit, []),
         };
         await this.updatePlaylistAudio(data);
       }

@@ -1,6 +1,6 @@
-import PlaylistItem from "../../models/models/playlist-item";
+import PlaylistItemBack from "./playlist-item-back";
 
-export default class PlaylistItemFilled extends PlaylistItem {
+export default class PlaylistItemFilled extends PlaylistItemBack {
     name: string;
     path: string;
     
@@ -8,7 +8,7 @@ export default class PlaylistItemFilled extends PlaylistItem {
     form: boolean;
     surnameEdit: string;
 
-    constructor(id: string, idAudio: string, surname: string, children: PlaylistItem[], name: string, path: string) {
+    constructor(id: string, idAudio: string, surname: string, children: PlaylistItemBack[], name: string, path: string) {
         super(id, idAudio, surname, children);
         this.name = name;
         this.path = path;

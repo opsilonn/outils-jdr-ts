@@ -1,10 +1,10 @@
-export default class PlaylistItem {
+export default class PlaylistItemBack {
     id: string;
     idAudio: string;
     surname: string;
-    children: PlaylistItem[];
+    children: PlaylistItemBack[];
 
-    constructor(id: string, idAudio: string, surname: string, children: PlaylistItem[]) {
+    constructor(id: string, idAudio: string, surname: string, children: PlaylistItemBack[]) {
         this.id = id;
         this.idAudio = idAudio;
         this.surname = surname;

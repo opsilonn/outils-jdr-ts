@@ -115,7 +115,7 @@ import LoaderComponent from "~/components/loader.vue";
 import TreeviewAudio from "~/components/treeview-audio.vue";
 import AudioItem from "~/models/models/audio-item";
 import Playlist from "~/models/models/playlist";
-import PlaylistItem from "~/models/models/playlist-item";
+import PlaylistItemBack from "~/models/models/playlist-item-back";
 const audioItem = namespace("audioItem");
 const playlist = namespace("playlist");
 const audioPlayer = namespace("audioPlayer");
@@ -140,7 +140,7 @@ export default class AudioPage extends Vue {
   @audioItem.State
   public audiosDatabase: any;
   @audioItem.Getter
-  public getAudioFolderByTitle: (name: string) => PlaylistItem[];
+  public getAudioFolderByTitle: (name: string) => PlaylistItemBack[];
   @playlist.State
   public playlists: any;
   @audioPlayer.State
@@ -269,3 +269,4 @@ export default class AudioPage extends Vue {
   display: none;
 }
 </style>
+~/models/models/playlist-item-back

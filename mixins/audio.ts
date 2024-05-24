@@ -1,6 +1,6 @@
 // Imports
 import { Component, Vue } from 'nuxt-property-decorator';
-import PlaylistItem from '~/models/models/playlist-item';
+import PlaylistItemBack from '~/models/models/playlist-item-back';
 
 @Component
 export default class AudioMixin extends Vue {
@@ -11,7 +11,7 @@ export default class AudioMixin extends Vue {
    * @param items 
    * @returns 
    */
-   public getPlaylistItemById(id: string, items: PlaylistItem[]): PlaylistItem {
+   public getPlaylistItemById(id: string, items: PlaylistItemBack[]): PlaylistItemBack {
     for (let i = 0; i < items.length; i++) {
       if (items[i].id === id) {
         return items[i];
@@ -34,7 +34,7 @@ export default class AudioMixin extends Vue {
    * @param items 
    * @returns 
    */
-   public getFolderContainingPlaylistItemById(id: string, items: PlaylistItem[]): PlaylistItem {
+   public getFolderContainingPlaylistItemById(id: string, items: PlaylistItemBack[]): PlaylistItemBack {
     for (let i = 0; i < items.length; i++) {
       if (!!items[i].children) {
         if (items[i].children.some(item => item.id === id)) {

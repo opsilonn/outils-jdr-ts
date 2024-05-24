@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import AudioItem from '~/models/models/audio-item';
-import PlaylistItem from '~/models/models/playlist-item';
+import PlaylistItemBack from '~/models/models/playlist-item-back';
 import PlaylistItemFilled from '~/models/models/playlist-item-filled';
 
 @Module({
@@ -21,7 +21,7 @@ export default class AudioItemStore extends VuexModule {
    * Gets a specific folder from the audioFolder, given its title
    * @param {String} name Title of the folder to find
    */
-  get getAudioFolderByTitle(): (name: string) => PlaylistItem[] {
+  get getAudioFolderByTitle(): (name: string) => PlaylistItemBack[] {
     return (name: string) => this.audioFolder.find((_) => _.name === name)?.children || [];
   }
 

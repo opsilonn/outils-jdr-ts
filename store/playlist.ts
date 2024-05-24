@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import AudioItem from '~/models/models/audio-item';
 import Playlist from '~/models/models/playlist';
-import PlaylistItem from '~/models/models/playlist-item';
+import PlaylistItemBack from '~/models/models/playlist-item-back';
 import PlaylistItemFilled from '~/models/models/playlist-item-filled';
 
 @Module({
@@ -23,8 +23,8 @@ export default class PlaylistStore extends VuexModule {
   // You cannot modify the actual object when iterating, only the properties. Hence, we need to modify at the index
   // items.forEach(item => item = new Obj(...)) = WRONG
   // items.forEach(item => item.property = ...) = GOOD
-  public static FILL_PLAYLIST_ITEMS(database: any, items: PlaylistItem[]): void {
-    items.forEach((item: PlaylistItem, i: number) => {
+  public static FILL_PLAYLIST_ITEMS(database: any, items: PlaylistItemBack[]): void {
+    items.forEach((item: PlaylistItemBack, i: number) => {
       if (item.idAudio) {
         const audio = database.find((a: AudioItem) => a.id === items[i].idAudio);
         items[i] = new PlaylistItemFilled(item.id, item.idAudio, item.surname, item.children, audio.name, audio.path);

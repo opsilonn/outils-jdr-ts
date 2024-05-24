@@ -4,7 +4,7 @@ import { promisify } from "util";
 import { v4 as uuidv4 } from "uuid";
 import AudioItem from "../../models/models/audio-item";
 import Playlist from "../../models/models/playlist";
-import PlaylistItem from "../../models/models/playlist-item";
+import PlaylistItemBack from "../../models/models/playlist-item-back";
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
@@ -190,12 +190,12 @@ export default class PlaylistCRUD {
     }
 
     // We initialize the new Audio
-    const newAudio: PlaylistItem = new PlaylistItem(uuidv4(), audioItem.id, "", []);
+    const newAudio: PlaylistItemBack = new PlaylistItemBack(uuidv4(), audioItem.id, "", []);
 
     // If no id was given : add to the root of the playlist
     if (!!idFolder) {
       // We fetch the folder in the arborescence
-      let folder: PlaylistItem = null;
+      let folder: PlaylistItemBack = null;
       try {
         folder = this.getFolderByItemId(idFolder, playlist.rootFolder);
       } catch (err: any) {
@@ -236,7 +236,7 @@ export default class PlaylistCRUD {
    * @param {PlaylistItemFilled} playlistItem
    * @returns {Promise<Playlist>}
    */
-  static async updatePlaylistItem(idPlaylist: string, idItem: string, playlistItem: PlaylistItem): Promise<Playlist> {
+  static async updatePlaylistItem(idPlaylist: string, idItem: string, playlistItem: PlaylistItemBack): Promise<Playlist> {
     // Get all the playlists
     let playlists: Playlist[] = await this.getAll(pathFileSave);
 
@@ -256,7 +256,7 @@ export default class PlaylistCRUD {
     }
 
     // We fetch the folder in the arborescence
-    let folder: PlaylistItem;
+    let folder: PlaylistItemBack;
     try {
       folder = this.getParentFolderByItemId(idPlaylist, playlist.rootFolder);
     } catch (err: any) {
@@ -264,13 +264,13 @@ export default class PlaylistCRUD {
     }
 
     // We update the item
-    let itemToEdit: PlaylistItem;
+    let itemToEdit: PlaylistItemBack;
 
     if (!!folder) {
-      itemToEdit = folder.children.find((f: PlaylistItem) => f.id === idItem);
+      itemToEdit = folder.children.find((f: PlaylistItemBack) => f.id === idItem);
     } else {
       // Si dossier non trouvé : il est à la racine
-      itemToEdit = playlist.rootFolder.find((f: PlaylistItem) => f.id === idItem);
+      itemToEdit = playlist.rootFolder.find((f: PlaylistItemBack) => f.id === idItem);
     }
     itemToEdit.surname = playlistItem.surname || "";
 
@@ -448,7 +448,7 @@ export default class PlaylistCRUD {
    * @param {*} folder
    * @returns
    */
-  static getParentFolderByItemId(id: string, folder: PlaylistItem[]): PlaylistItem {
+  static getParentFolderByItemId(id: string, folder: PlaylistItemBack[]): PlaylistItemBack {
     for (let i = 0; i < folder.length; i++) {
       const item = folder[i];
 

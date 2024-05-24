@@ -87,7 +87,11 @@ export default class AudioCRUD {
     } as PlaylistItemBack;
 
     // On ajoute chaque musique à la BDD
-    this.audiosDatabase.push(new AudioItem(id, name, fullPath.replace("./static", "")));
+    this.audiosDatabase.push({
+      id: id,
+      name: name,
+      path: fullPath.replace("./static", "")
+    });
 
     return item;
   }

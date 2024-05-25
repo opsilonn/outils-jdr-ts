@@ -1,11 +1,12 @@
 // import PlaylistCRUD from "~/server/models/playlist.model";
+import express from "express";
 import PlaylistCRUD from "../../models/playlist.model";
 
 /**
  * @param { import('express').Request } req
  * @param { import('express').Response } res
  */
-export default async function postPlaylist(req: any, res: any): Promise<void> {
+export default async function postPlaylist(req: express.Request, res: express.Response): Promise<void> {
   try {
     const playlist = await PlaylistCRUD.add(req.body);
     res.status(200).json(playlist);

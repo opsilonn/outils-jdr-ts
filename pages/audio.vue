@@ -112,6 +112,7 @@ import DialogPlaylistData from "~/components/dialog-playlist-data.vue";
 import FooterAudio from "~/components/footer-audio.vue";
 import LoaderComponent from "~/components/loader.vue";
 import TreeviewAudio from "~/components/treeview-audio.vue";
+import AudioCategory from "~/models/models/audio-category";
 import AudioItem from "~/models/models/audio-item";
 import Playlist from "~/models/models/playlist";
 import PlaylistItemBack from "~/models/models/playlist-item-back";
@@ -126,7 +127,7 @@ export default class AudioPage extends Vue {
   isPageLoading: boolean = true;
 
   // Tabs related
-  tabs: any[] = [];
+  tabs: AudioCategory[] = [];
   selectedTabIndex: number = null;
 
   // Playlists related
@@ -175,8 +176,18 @@ export default class AudioPage extends Vue {
 
   async mounted() {
     // We set the tabs
-    const tabsCategory = JSON.parse(JSON.stringify(this.audioCategories));
-    const tabPlaylist = { title: "Playlist", icon: "mdi-playlist-music" };
+    const tabsCategory: AudioCategory[] = JSON.parse(JSON.stringify(this.audioCategories));
+    const tabPlaylist: AudioCategory = {
+      audio: null,
+      hasError: false,
+      howl: null,
+      icon: "mdi-playlist-music",
+      id: 4,
+      isLooping: false,
+      isPlaying: false,
+      title: "Playlist",
+      volume: 0,
+    };
     this.tabs = tabsCategory.concat([tabPlaylist]);
 
     // We fetch the audio data

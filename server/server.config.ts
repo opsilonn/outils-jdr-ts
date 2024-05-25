@@ -1,11 +1,11 @@
-let existingConf: any;
+let existingConf: Record<string, string>;
 try {
   existingConf = require("./local.server.config.ts");
 } catch (err: any) {
   existingConf = {};
 }
 
-function e(param: any) {
+function e(param: string) {
   return process.env[param] || existingConf[param] || "";
 }
 export default {

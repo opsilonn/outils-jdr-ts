@@ -361,7 +361,7 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
     }
   }
 
-  shuffleArray(arr: any[]) {
+  shuffleArray(arr: unknown[]) {
     return JSON.parse(JSON.stringify(arr)).sort(() => Math.random() - 0.5);
   }
 

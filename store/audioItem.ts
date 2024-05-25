@@ -37,7 +37,7 @@ export default class AudioItemStore extends VuexModule {
   /** Gets ALL the audio folder */
   @Action({ rawError: true })
   async fetchAudioFolder(): Promise<void> {
-    const audioData: any = (await axios.get("/api/audios")).data;
+    const audioData: { audioFolder: PlaylistItemBack[], audiosDatabase: AudioItem[] } = (await axios.get("/api/audios")).data;
     this.context.commit("initAudio", audioData);
   }
 }

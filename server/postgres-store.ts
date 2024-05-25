@@ -1,17 +1,17 @@
-import { Pool } from "pg";
+import { ClientConfig, Pool, PoolClient } from "pg";
 
 class PostgresStore {
   /** @type { import('pg').Pool } */
-  pool: any;
+  pool: Pool;
   /** @type { import('pg').PoolClient } */
-  client: any;
+  client: PoolClient;
   /** @type { import('pg').ClientConfig } */
-  config: any;
+  config: ClientConfig;
 
   /**
    * @param { import('pg').ClientConfig } config
    */
-  async init(config: any) {
+  async init(config: ClientConfig) {
     this.pool = new Pool(config);
     this.config = Object.assign({}, config);
     this.client = await this.pool.connect();

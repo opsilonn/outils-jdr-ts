@@ -28,7 +28,7 @@ export default class PlaylistStore extends VuexModule {
   // You cannot modify the actual object when iterating, only the properties. Hence, we need to modify at the index
   // items.forEach(item => item = new Obj(...)) = WRONG
   // items.forEach(item => item.property = ...) = GOOD
-  public static FILL_PLAYLIST_ITEMS(database: any, items: PlaylistItemBack[]): void {
+  public static FILL_PLAYLIST_ITEMS(database: AudioItem[], items: PlaylistItemBack[]): void {
     items.forEach((item: PlaylistItemBack, i: number) => {
       if (item.idAudio) {
         const audio = database.find((a: AudioItem) => a.id === items[i].idAudio);     
@@ -72,7 +72,7 @@ export default class PlaylistStore extends VuexModule {
    * @param {*} newIndex
    */
   @Mutation
-  private MOVE_PLAYLIST({ oldIndex, newIndex }: any): void {
+  private MOVE_PLAYLIST({ oldIndex, newIndex }: { oldIndex: number, newIndex: number }): void {
     const playlist: Playlist = this.playlists[oldIndex];
     this.playlists.splice(oldIndex, 1);
     this.playlists.splice(newIndex, 0, playlist);

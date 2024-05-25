@@ -250,7 +250,7 @@ export default class PlaylistCRUD {
       playlist = await this.get(idPlaylist);
     }
 
-    let folder: any = null;
+    let folder: PlaylistItemBack = null;
     try {
       folder = this.getParentFolder(idItem, playlist.rootFolder);
     } catch (err: any) {
@@ -258,8 +258,8 @@ export default class PlaylistCRUD {
     }
 
     // folder found (and not the root folder) : take children / No folder found : remove from root
-    const arr: any = (!!folder && !!folder.id) ? folder.children : playlist.rootFolder;
-    const indexFile: number = arr.findIndex((file: any) => file.id === idItem);
+    const arr: PlaylistItemBack[] = (!!folder && !!folder.id) ? folder.children : playlist.rootFolder;
+    const indexFile: number = arr.findIndex((file: PlaylistItemBack) => file.id === idItem);
     arr.splice(indexFile, 1);
 
     playlist.total--;
@@ -291,11 +291,11 @@ export default class PlaylistCRUD {
       throw new Error("Item not found !");
     }
 
-    const item: any = oldFolder[index];
+    const item: PlaylistItemBack = oldFolder[index];
     oldFolder.splice(index, 1);
 
     // 2 - Add to new location
-    const newFolder: any = this.getParentFolder(idFolderToMoveTo, playlist.rootFolder)?.children || playlist.rootFolder;
+    const newFolder: PlaylistItemBack[] = this.getParentFolder(idFolderToMoveTo, playlist.rootFolder)?.children || playlist.rootFolder;
     newFolder.splice(newIndex, 0, item);
 
     // 3 - save and return playlist

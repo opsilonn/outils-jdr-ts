@@ -1,11 +1,12 @@
 // import PlaylistCRUD from "~/server/models/playlist.model";
+import express from "express";
 import PlaylistCRUD from "../../models/playlist.model";
 
 /**
  * @param { import('express').Request } req
  * @param { import('express').Response } res
  */
-export default async function getPlaylist(req: any, res: any): Promise<void> {
+export default async function getPlaylist(req: express.Request, res: express.Response): Promise<void> {
   try {
     const playlist = await PlaylistCRUD.get(req.params.idPlaylist);
     res.status(200).json(playlist);

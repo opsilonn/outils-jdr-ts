@@ -2,7 +2,7 @@
   <!-- Dashboard (fixed to the bottom) -->
   <v-footer fixed padless>
     <v-card flat tile width="100%" class="text-center grey darken-3">
-      <div v-for="(tab, i) in audioCategories" :key="tab.id">
+      <div v-for="(tab, i) in EnumAudioFolder" :key="tab.id">
         <v-row align="center">
           <!-- col 1 - category -->
           <v-col cols="3">
@@ -43,7 +43,7 @@
         </v-row>
 
         <!-- Divider, except last row -->
-        <v-divider v-if="i !== audioCategories.length - 1" />
+        <v-divider v-if="i !== EnumAudioFolder.length - 1" />
       </div>
     </v-card>
   </v-footer>
@@ -51,13 +51,14 @@
 
 <script lang="ts">
 import { Component, Vue, Watch, namespace } from "nuxt-property-decorator";
+import EnumAudioFolder from "~/models/enums/EnumAudioFolder";
 import AudioCategory from "~/models/models/audio-category";
 const audioPlayer = namespace("audioPlayer");
 
 @Component({})
 export default class FooterAudioComponent extends Vue {
-  @audioPlayer.State
-  public audioCategories: AudioCategory[];
+  EnumAudioFolder = EnumAudioFolder;
+
   @audioPlayer.Mutation
   public setVolume: (id: number) => void;
   @audioPlayer.Mutation
@@ -67,7 +68,7 @@ export default class FooterAudioComponent extends Vue {
 
   /** */
   get audioCategoriesVolumes(): { id: number, volume: number }[] {
-    return this.audioCategories.map(( category: AudioCategory) => ({
+    return EnumAudioFolder.map(( category: AudioCategory) => ({
       id: category.id,
       volume: category.volume,
     }));

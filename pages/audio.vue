@@ -17,7 +17,7 @@
       <!-- Tab view -->
       <v-tabs-items v-model="selectedTabIndex">
         <!-- Dynamically create tab view for audio categories -->
-        <v-tab-item v-for="(tab, i) in audioCategories" :key="`tab_item_category${i}`" :transition="false" class="scroll">
+        <v-tab-item v-for="(tab, i) in EnumAudioFolder" :key="`tab_item_category${i}`" :transition="false" class="scroll">
           <v-list>
             <TreeviewAudio :audioFolder="getAudioFolderByTitle(tab.title)" :enablePlay="true" />
           </v-list>
@@ -112,6 +112,7 @@ import DialogPlaylistData from "~/components/dialog-playlist-data.vue";
 import FooterAudio from "~/components/footer-audio.vue";
 import LoaderComponent from "~/components/loader.vue";
 import TreeviewAudio from "~/components/treeview-audio.vue";
+import EnumAudioFolder from "~/models/enums/EnumAudioFolder";
 import AudioCategory from "~/models/models/audio-category";
 import AudioItem from "~/models/models/audio-item";
 import Playlist from "~/models/models/playlist";
@@ -125,6 +126,7 @@ const audioPlayer = namespace("audioPlayer");
 })
 export default class AudioPage extends Vue {
   isPageLoading: boolean = true;
+  EnumAudioFolder = EnumAudioFolder;
 
   // Tabs related
   tabs: AudioCategory[] = [];
@@ -143,8 +145,6 @@ export default class AudioPage extends Vue {
   public getAudioFolderByTitle: (name: string) => PlaylistItemBack[];
   @playlist.State
   public playlists: any;
-  @audioPlayer.State
-  public audioCategories: any;
   @audioItem.Action
   public fetchAudioFolder: () => void;
   @playlist.Action
@@ -176,7 +176,7 @@ export default class AudioPage extends Vue {
 
   async mounted() {
     // We set the tabs
-    const tabsCategory: AudioCategory[] = JSON.parse(JSON.stringify(this.audioCategories));
+    const tabsCategory: AudioCategory[] = EnumAudioFolder;
     const tabPlaylist: AudioCategory = {
       audio: null,
       hasError: false,

@@ -24,7 +24,7 @@
         <v-col cols="6">
           <!-- TO DO : the tabs should stay displayed, and not be scrolled -->
           <v-tabs v-model="selectedTabIndex" grow icons-and-text>
-            <v-tab v-for="(tab, i) in audioCategories" :key="`tab_${i}`">
+            <v-tab v-for="(tab, i) in EnumAudioFolder" :key="`tab_${i}`">
               <span class="shrink d-none d-sm-flex" v-text="tab.title" />
               <v-icon v-text="tab.icon" />
             </v-tab>
@@ -33,8 +33,8 @@
           <!-- Tab view -->
           <v-tabs-items v-model="selectedTabIndex">
             <div class="scroll">
-              <!-- Dynamically create tab view for audio audioCategories -->
-              <v-tab-item v-for="(tab, i) in audioCategories" :key="`tab_item_category${i}`" :transition="false">
+              <!-- Dynamically create tab view for audio categories -->
+              <v-tab-item v-for="(tab, i) in EnumAudioFolder" :key="`tab_item_category${i}`" :transition="false">
                 <v-list>
                   <TreeviewAudio :audioFolder="getAudioFolderByTitle(tab.title)" :idPlaylist="idPlaylist" :enableDnd="true" :enablePlay="true" />
                 </v-list>
@@ -75,7 +75,7 @@ import draggable from "vuedraggable";
 import EventBus from "~/EventBus";
 import TreeviewAudioComponent from "~/components/treeview-audio.vue";
 import AudioMixin from "~/mixins/audio";
-import AudioCategory from "~/models/models/audio-category";
+import EnumAudioFolder from "~/models/enums/EnumAudioFolder";
 import AudioItem from "~/models/models/audio-item";
 import Playlist from "~/models/models/playlist";
 import PlaylistItemBack from "~/models/models/playlist-item-back";
@@ -90,6 +90,7 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
   @Prop({ required: true }) readonly idPlaylist: string;
   @Prop({ required: true }) readonly dialog: boolean;
 
+  EnumAudioFolder = EnumAudioFolder;
   isPlaylistUpdated: boolean = false;
   selectedTabIndex: number = null;
 
@@ -97,8 +98,6 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
   public getPlaylistById: (id: string) => Playlist;
   @audioItem.Getter
   public getAudioFromDatabase: (id: string) => AudioItem;
-  @audioPlayer.State
-  public audioCategories: AudioCategory[];
   @audioItem.Getter
   public getAudioFolderByTitle: (name: string) => PlaylistItemBack[];
   @playlist.State

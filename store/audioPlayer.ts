@@ -1,5 +1,6 @@
 import { Howl } from "howler";
 import { Module, Mutation, VuexModule } from 'vuex-module-decorators';
+import EnumAudioFolder from '~/models/enums/EnumAudioFolder';
 import AudioCategory from "~/models/models/audio-category";
 import AudioItem from "~/models/models/audio-item";
 const INDEX_OF_CATEGORY_NAME = 2;
@@ -10,17 +11,11 @@ const INDEX_OF_CATEGORY_NAME = 2;
   namespaced: true
 })
 export default class AudioPlayerStore extends VuexModule {
-  private DEFAULT_VOLUME = 0.75;
-  public audioCategories: AudioCategory[] = [
-    { id: 1, title: "Ambiance", icon: "mdi-city-variant-outline", audio: {}, howl: undefined, isPlaying: false, isLooping: false, hasError: false, volume: this.DEFAULT_VOLUME },
-    { id: 2, title: "Musique", icon: "mdi-music-note", audio: {}, howl: undefined, isPlaying: false, isLooping: false, hasError: false, volume: this.DEFAULT_VOLUME },
-    { id: 3, title: "SFX", icon: "mdi-ear-hearing", audio: {}, howl: undefined, isPlaying: false, isLooping: false, hasError: false, volume: this.DEFAULT_VOLUME },
-  ];
 
   /** */
   @Mutation
   setAudio(audio: AudioItem): void {
-    const category: AudioCategory = this.audioCategories.find((tab) => audio.path.split("/")[INDEX_OF_CATEGORY_NAME].includes(tab.title));
+    const category: AudioCategory = EnumAudioFolder.find((tab) => audio.path.split("/")[INDEX_OF_CATEGORY_NAME].includes(tab.title));
     if (!category) {
       alert("Music not found !");
       return;
@@ -65,7 +60,7 @@ export default class AudioPlayerStore extends VuexModule {
    */
   @Mutation
   setVolume(id: number): void {
-    const category: AudioCategory = this.audioCategories.find((c: AudioCategory) => c.id === id);
+    const category: AudioCategory = EnumAudioFolder.find((c: AudioCategory) => c.id === id);
     if (!!category?.howl) {
       category.howl.volume(category.volume);
     }
@@ -77,7 +72,7 @@ export default class AudioPlayerStore extends VuexModule {
    */
   @Mutation
   setPlayOrPause(id: number): void {
-    const category: AudioCategory = this.audioCategories.find((c: AudioCategory) => c.id === id);
+    const category: AudioCategory = EnumAudioFolder.find((c: AudioCategory) => c.id === id);
     if (!!category?.howl) {
       category.isPlaying = !category.isPlaying;
       if (category.isPlaying) {
@@ -94,7 +89,7 @@ export default class AudioPlayerStore extends VuexModule {
    */
   @Mutation
   setLoop(id: number): void {
-    const category: AudioCategory = this.audioCategories.find((c: AudioCategory) => c.id === id);
+    const category: AudioCategory = EnumAudioFolder.find((c: AudioCategory) => c.id === id);
     category.isLooping = !category.isLooping;
     if (!!category?.howl) {
       category.howl.loop(category.isLooping);
@@ -104,7 +99,7 @@ export default class AudioPlayerStore extends VuexModule {
   /** Stops all tracks that are being played */
   @Mutation
   stopAllAudioTracks(): void {
-    this.audioCategories
+    EnumAudioFolder
       .filter((category: AudioCategory) => !!category?.howl)
       .forEach((category: AudioCategory) => category.howl.pause());
   }

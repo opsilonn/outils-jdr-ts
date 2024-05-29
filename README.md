@@ -9,7 +9,7 @@ Actuellement, il contient :
 
 Node.js est nécessaire pour faire fonctionner le projet, et peut être [téléchargé ici](https://nodejs.org/en)
 
-Il faut **impérativement** créer le fichier */server/local.server.config.js* avec le contenu suivant, (qui peut être trouvé dans le [fichier suivant](https://github.com/opsilonn/outils-jdr-ts/blob/main/server/local.server.config.example.js)):
+Il faut **impérativement** créer le fichier */server/local.server.config.ts* avec le contenu suivant, (qui peut être trouvé dans le [fichier suivant](https://github.com/opsilonn/outils-jdr-ts/blob/main/server/local.server.config.example.ts)):
 
 ```js
 module.exports = {

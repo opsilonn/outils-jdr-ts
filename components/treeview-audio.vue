@@ -101,7 +101,7 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
 
   /** */
   getItemIcon(item: PlaylistItemFront, isOpen: boolean): string {
-    const isFolder = item.children && 0 < item.children.length;
+    const isFolder = 0 < item.children.length;
     if (isFolder) {
       return isOpen
         ? "mdi-folder-open"
@@ -117,7 +117,7 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
 
   /** */
   onClick(file: PlaylistItemFront): void {
-    if ((!file.children || (file.children && file.children.length == 0)) && this.enablePlay && !file.isEditing) {
+    if (file.children.length == 0 && this.enablePlay && !file.isEditing) {
       this.setAudio(file);
     }
   }

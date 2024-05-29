@@ -12,7 +12,7 @@ export default class CompetenceCRUD {
    * @param {number} id
    * @returns {Promise<Competence>}
    */
-  static async get(id: number): Promise<Competence> {
+  public static async get(id: number): Promise<Competence> {
     const competences: Competence[] = await this.getAll();
     const competence: Competence = competences.find((comp: Competence) => comp.id === id);
     if (!competence) {
@@ -25,7 +25,7 @@ export default class CompetenceCRUD {
   /**
    * @returns {Promise<Competence[]>}
    */
-  static async getAll(): Promise<Competence[]> {
+  public static async getAll(): Promise<Competence[]> {
     const competences: string = await readFile(competencesFile, "utf8");
     return JSON.parse(competences);
   }
@@ -34,7 +34,7 @@ export default class CompetenceCRUD {
    * @param {Competence} competenceReceived
    * @returns {Promise<Competence>}
    */
-  static async add(competenceReceived: Competence): Promise<Competence> {
+  public static async add(competenceReceived: Competence): Promise<Competence> {
     const competences: Competence[] = await this.getAll();
 
     const maxId = Math.max.apply(null, competences.map((competence: Competence) => competence.id));
@@ -52,7 +52,7 @@ export default class CompetenceCRUD {
    * @param {Competence} competenceReceived
    * @returns {Promise<Competence>}
    */
-  static async update(id: number, competenceReceived: Competence): Promise<Competence> {
+  public static async update(id: number, competenceReceived: Competence): Promise<Competence> {
     let competences = await this.getAll();
 
     const index = competences.findIndex((competence: Competence) => competence.id === id);
@@ -71,7 +71,7 @@ export default class CompetenceCRUD {
    * @param {number} id
    * @returns {Promise<Competence>}
    */
-  static async delete(id: number) {
+  public  static async delete(id: number) {
     let competences: Competence[] = await this.getAll();
 
     const index: number = competences.findIndex((competence: Competence) => competence.id === id);

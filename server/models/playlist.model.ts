@@ -16,7 +16,7 @@ export default class PlaylistCRUD {
    * @param {string} id
    * @returns {Promise<Playlist>}
    */
-  static async get(id: string): Promise<Playlist> {
+  public static async get(id: string): Promise<Playlist> {
     const playlists: Playlist[] = await this.getAll();
 
     const playlist: Playlist = playlists.find((p: Playlist) => p.id === id);
@@ -31,7 +31,7 @@ export default class PlaylistCRUD {
    * @param {string} id
    * @returns {Promise<Playlist>}
    */
-  static async getSaved(id: string): Promise<Playlist> {
+  public static async getSaved(id: string): Promise<Playlist> {
     const playlists: Playlist[] = await this.getAll(PATH_FILE_SAVE);
 
     let playlist: Playlist = playlists.find((p: Playlist) => p.id === id);
@@ -48,7 +48,7 @@ export default class PlaylistCRUD {
   /**
    * @returns {Promise<Playlist[]>}
    */
-  static async getAll(path: string = PATH_FILE):Promise<Playlist[]> {
+  public static async getAll(path: string = PATH_FILE):Promise<Playlist[]> {
     if (!fs.existsSync(path)) {
       writeFile(path, JSON.stringify([], null, 2), "utf8");
       return [];
@@ -63,7 +63,7 @@ export default class PlaylistCRUD {
    * @param {PlaylistCRUD} playlistReceived
    * @returns {Promise<Playlist>}
    */
-  static async add(playlistReceived: Playlist): Promise<Playlist> {
+  public static async add(playlistReceived: Playlist): Promise<Playlist> {
     const playlist: Playlist = {
       id: uuidv4(),
       name: playlistReceived.name,
@@ -84,7 +84,7 @@ export default class PlaylistCRUD {
    * @param {PlaylistCRUD} playlistReceived
    * @returns {Promise<Playlist>}
    */
-  static async update(id: string, playlistReceived: Playlist): Promise<Playlist> {
+  public static async update(id: string, playlistReceived: Playlist): Promise<Playlist> {
     let playlists: Playlist[] = await this.getAll();
 
     const playlist: Playlist = playlists.find((p: Playlist) => p.id === id);
@@ -110,7 +110,7 @@ export default class PlaylistCRUD {
    * @param {Number} newIndex
    * @returns {Promise<Playlist[]>}
    */
-  static async move(oldIndex: number, newIndex: number): Promise<Playlist[]> {
+  public static async move(oldIndex: number, newIndex: number): Promise<Playlist[]> {
     const playlists: Playlist[] = await this.getAll();
 
     if (oldIndex < 0 || playlists.length < oldIndex) {
@@ -128,7 +128,7 @@ export default class PlaylistCRUD {
   /**
    * @param {string} id
    */
-  static async delete(id: string): Promise<void> {
+  public static async delete(id: string): Promise<void> {
     let playlists: Playlist[] = await this.getAll();
 
     const index: number = playlists.findIndex((playlist: Playlist) => playlist.id === id);
@@ -148,7 +148,7 @@ export default class PlaylistCRUD {
    * @param {Number} index
    * @returns {Promise<Playlist>}
    */
-  static async addPlaylistItem(idPlaylist: string, audioItem: AudioItem, idFolder: string, index: number) {
+  public static async addPlaylistItem(idPlaylist: string, audioItem: AudioItem, idFolder: string, index: number) {
     let playlistsSaved: Playlist[] = await this.getAll(PATH_FILE_SAVE);
     let playlist: Playlist = playlistsSaved.find((p: Playlist) => p.id === idPlaylist);
     
@@ -207,7 +207,7 @@ export default class PlaylistCRUD {
    * @param {PlaylistItemFilled} playlistItem
    * @returns {Promise<Playlist>}
    */
-  static async updatePlaylistItem(idPlaylist: string, idItem: string, playlistItem: PlaylistItemBack): Promise<Playlist> {
+  public static async updatePlaylistItem(idPlaylist: string, idItem: string, playlistItem: PlaylistItemBack): Promise<Playlist> {
     let playlists: Playlist[] = await this.getAll(PATH_FILE_SAVE);
     let playlist: Playlist = playlists.find((p: Playlist) => p.id === idPlaylist);
 
@@ -241,7 +241,7 @@ export default class PlaylistCRUD {
    * @param {string} idPlaylist
    * @param {string} idItem
    */
-  static async deleteItem(idPlaylist: string, idItem: string): Promise<Playlist> {
+  public static async deleteItem(idPlaylist: string, idItem: string): Promise<Playlist> {
     let playlists: Playlist[] = await this.getAll(PATH_FILE_SAVE);
     let playlist: Playlist = playlists.find((p: Playlist) => p.id === idPlaylist);
 
@@ -274,7 +274,7 @@ export default class PlaylistCRUD {
    * @param {string} idFolderToMoveTo
    * @param {Number} newIndex
    */
-  static async movePlaylistItem(idPlaylist: string, idItem: string, idFolderToMoveTo: string, newIndex: number): Promise<Playlist> {
+  public static async movePlaylistItem(idPlaylist: string, idItem: string, idFolderToMoveTo: string, newIndex: number): Promise<Playlist> {
     let playlists: Playlist[] = await this.getAll(PATH_FILE_SAVE);
     let playlist: Playlist= playlists.find((p: Playlist) => p.id === idPlaylist);
 
@@ -309,7 +309,7 @@ export default class PlaylistCRUD {
    * @param {string} idPlaylist
    * @returns {Promise<Playlist>}
    */
-  static savePlaylist(idPlaylist: string): Promise<Playlist> {
+  public static savePlaylist(idPlaylist: string): Promise<Playlist> {
     return this.savePlaylistFromFolderAToFolderB(idPlaylist, PATH_FILE_SAVE, PATH_FILE);
   }
 
@@ -318,7 +318,7 @@ export default class PlaylistCRUD {
    * @param {string} idPlaylist
    * @returns {Promise<Playlist>}
    */
-  static resetPlaylist(idPlaylist: string): Promise<Playlist> {
+  public static resetPlaylist(idPlaylist: string): Promise<Playlist> {
     return this.savePlaylistFromFolderAToFolderB(idPlaylist, PATH_FILE, PATH_FILE_SAVE);
   }
 
@@ -329,7 +329,7 @@ export default class PlaylistCRUD {
    * @param {string} pathTo
    * @returns {Promise<Playlist>}
    */
-  static async savePlaylistFromFolderAToFolderB(idPlaylist: string, pathFrom: string, pathTo: string) {
+  private static async savePlaylistFromFolderAToFolderB(idPlaylist: string, pathFrom: string, pathTo: string) {
     const playlistToSave: Playlist = (await this.getAll(pathFrom)).find((playlist: Playlist) => playlist.id === idPlaylist);
     if (!playlistToSave) {
       throw new Error("Playlist not found !");
@@ -355,7 +355,7 @@ export default class PlaylistCRUD {
    * @param {*} folder
    * @returns
    */
-  static getFolder(id: string, folder: PlaylistItemBack[]): PlaylistItemBack {
+  private static getFolder(id: string, folder: PlaylistItemBack[]): PlaylistItemBack {
     for (let item of folder) {
       if (!item.children) {
         continue;
@@ -377,7 +377,7 @@ export default class PlaylistCRUD {
    * @param {*} folder
    * @returns
    */
-  static getParentFolder(id: string, folder: PlaylistItemBack[]): PlaylistItemBack {
+  private static getParentFolder(id: string, folder: PlaylistItemBack[]): PlaylistItemBack {
     for (let item of folder) {
       if (!!item.children) {
         if (!!item.children.find((el: PlaylistItemBack) => el.id === id)) {

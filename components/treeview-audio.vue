@@ -70,6 +70,8 @@ import { Component, Prop, mixins, namespace } from "nuxt-property-decorator";
 import draggable from "vuedraggable";
 import EventBus from "~/EventBus";
 import RulesMixin from "~/mixins/rules";
+import EnumAudioFolder from "~/models/enums/EnumAudioFolder";
+import AudioCategory from "~/models/models/audio-category";
 import AudioItem from "~/models/models/audio-item";
 import Playlist from "~/models/models/playlist";
 import PlaylistItemBack from "~/models/models/playlist-item-back";
@@ -99,17 +101,18 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
 
   /** */
   getItemIcon(item: PlaylistItemFront, isOpen: boolean): string {
-    return item.children && 0 < item.children.length
-      ? isOpen
+    const isFolder = item.children && 0 < item.children.length;
+    if (isFolder) {
+      return isOpen
         ? "mdi-folder-open"
-        : "mdi-folder"
-      : item.path.split("/")[2].includes("Ambiance")
-      ? "mdi-city-variant-outline"
-      : item.path.split("/")[2].includes("Musique")
-      ? "mdi-music-note"
-      : item.path.split("/")[2].includes("SFX")
-      ? "mdi-ear-hearing"
-      : "mdi-help";
+        : "mdi-folder";
+    }
+
+    const category = EnumAudioFolder.find((c: AudioCategory) => item.path.split("/")[2].includes(c.title));
+    if (!category) {
+      throw new Error('Les variables "title" dans les constantes ne correspondent pas à \'arborescence du dossier "/static/audio"');
+    }
+    return category.icon;
   }
 
   /** */

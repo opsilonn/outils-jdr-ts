@@ -69,6 +69,7 @@
 import { Component, Prop, mixins, namespace } from "nuxt-property-decorator";
 import draggable from "vuedraggable";
 import EventBus from "~/EventBus";
+import PlaylistItemMixin from "~/mixins/playlist-item";
 import RulesMixin from "~/mixins/rules";
 import EnumAudioFolder from "~/models/enums/EnumAudioFolder";
 import AudioCategory from "~/models/models/audio-category";
@@ -82,7 +83,7 @@ const audioPlayer = namespace("audioPlayer");
 @Component({
   components: { draggable },
 })
-export default class TreeviewAudioComponent extends mixins(RulesMixin) {
+export default class TreeviewAudioComponent extends mixins(PlaylistItemMixin, RulesMixin) {
 
   @Prop({ required: false }) readonly audioFolder: PlaylistItemFront[];
   @Prop({ required: false }) readonly idPlaylist: string;
@@ -101,8 +102,7 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
 
   /** */
   getItemIcon(item: PlaylistItemFront, isOpen: boolean): string {
-    const isFolder = 0 < item.children.length;
-    if (isFolder) {
+    if (this.isFolder(item)) {
       return isOpen
         ? "mdi-folder-open"
         : "mdi-folder";
@@ -116,9 +116,9 @@ export default class TreeviewAudioComponent extends mixins(RulesMixin) {
   }
 
   /** */
-  onClick(file: PlaylistItemFront): void {
-    if (file.children.length == 0 && this.enablePlay && !file.isEditing) {
-      this.setAudio(file);
+  onClick(item: PlaylistItemFront): void {
+    if (this.isFile(item) && this.enablePlay && !item.isEditing) {
+      this.setAudio(item);
     }
   }
 

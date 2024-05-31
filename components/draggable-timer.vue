@@ -62,32 +62,30 @@ export default class DraggableTimerComponent extends Vue {
   updateCptInterval: ReturnType<typeof setTimeout>;
   isPlaying: boolean = false;
 
-  get displayedCpt(): string {
+  public get displayedCpt(): string {
     const min = Math.floor(this.cpt / 60);
     const sec = String(this.cpt % 60).padStart(2, "0");
     return min != 0 ? `${min}m:${sec}s` : `${sec}s`;
   }
 
-  get animationDuration(): string {
-    return `1s`;
-  }
-
-  mounted(): void {
+  public mounted(): void {
     this.timer = document.getElementById(this.ID_TIMER);
   }
 
-  remove(): void {
+  /** Removes time to the timer */
+  public remove(): void {
     const toRemove = this.cpt % 5 || 5;
     this.cpt -= toRemove;
   }
 
-  add(): void {
+  /** Adds time to the timer */
+  public add(): void {
     const toAdd = 5 - (this.cpt % 5);
     this.cpt += toAdd;
   }
 
   /** Commence ou suspend le timer */
-  startOrPause(): void {
+  public startOrPause(): void {
     this.isPlaying = !this.isPlaying;
     if (this.isPlaying) {
       const that = this;
@@ -104,7 +102,7 @@ export default class DraggableTimerComponent extends Vue {
   }
 
   /** Le timer commence à être déplacé. Si sélectionné par un endroit valable, on initialise les valeur pour le draggable */
-  beginDragging(e: any): void {
+  public beginDragging(e: any): void {
     if (["v-btn", "v-icon", "v-slider"].some((className) => e.target.className.includes(className))) {
       return;
     }
@@ -120,7 +118,7 @@ export default class DraggableTimerComponent extends Vue {
   }
 
   /** Le Timer est en train d'être déplacé, on recalcule sa position à chaque mouvement */
-  isDragging(e: MouseEvent): void {
+  private isDragging(e: MouseEvent): void {
     e.preventDefault();
     // calculate the new cursor position:
     this.pos1 = this.pos3 - e.clientX;
@@ -133,7 +131,7 @@ export default class DraggableTimerComponent extends Vue {
   }
 
   /** On arrête de déplacer le timer, on défausse les variables utilisées */
-  stopDragging(): void {
+  private stopDragging(): void {
     document.onmouseup = null;
     document.onmousemove = null;
   }

@@ -11,7 +11,7 @@
   export default class TemplatePage extends Vue {
   transition: "slide-bottom";
 
-  head() {
+  public head(): { title: string } {
     return { title: "" };
   }
 };

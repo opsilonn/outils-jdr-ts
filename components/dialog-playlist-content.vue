@@ -14,8 +14,8 @@
         <v-spacer />
 
         <v-toolbar-items>
-          <v-btn text @click="callResetPlaylist" v-text="'Réinitialiser'" class="black--text" />
-          <v-btn text @click="callSavePlaylist" v-text="'Sauvegarder'" />
+          <v-btn text @click="reset" v-text="'Réinitialiser'" class="black--text" />
+          <v-btn text @click="save" v-text="'Sauvegarder'" />
         </v-toolbar-items>
       </v-toolbar>
 
@@ -117,7 +117,7 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
 
   /** whenever the dialog is opened */
   @Watch("dialog")
-  dialogChanged(): void {
+  public dialogChanged(): void {
     if (this.dialog) {
       this.RESET_SAVED_PLAYLIST();
       this.fetchSavedPlaylist(this.idPlaylist);
@@ -125,13 +125,16 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
     }
   }
 
-  mounted() {
+  public mounted(): void {
     EventBus.$on(EventBus.ADD_TO_PLAYLIST, async (event: CustomEvent) => this.addFile(event));
     EventBus.$on(EventBus.MOVE_WITHIN_PLAYLIST, async (event: any) => this.tryMoveItemWithinPlaylist(event));
   }
 
-  /** */
-  async addFile(event: any): Promise<void> {
+  /**
+   * Adds a file to a Playlist
+   * @param event 
+   */
+  private async addFile(event: any): Promise<void> {
     const audioToAdd: AudioItem = this.getAudioFromDatabase(event.from.id);
     const playlistItemNextTo: PlaylistItemBack = this.getPlaylistItem(event.to.id, this.savedPlaylist.rootFolder);
     const index = Math.max(0, this.savedPlaylist.rootFolder.indexOf(playlistItemNextTo));
@@ -146,8 +149,11 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
     this.isPlaylistUpdated = true;
   }
 
-  /** */
-  async tryMoveItemWithinPlaylist(event: any): Promise<void> {
+  /**
+   * Moves a Playlist Item within the Playlist
+   * @param event 
+   */
+  private async tryMoveItemWithinPlaylist(event: any): Promise<void> {
     const folder: PlaylistItemBack = this.getFolderContainingPlaylistItem(event.to.id, this.savedPlaylist.rootFolder);
     const idFolderToMoveTo: string = folder?.id || "";
     const newIndex: number = (folder?.children || this.savedPlaylist.rootFolder).findIndex((item: PlaylistItemBack) => item.id === event.to.id);
@@ -163,19 +169,19 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
   }
 
   /** Emits the event to close the dialog */
-  closeDialog(): void {
+  public closeDialog(): void {
     if (!this.isPlaylistUpdated || confirm("Vous avez fait des changements !\nÊtes-vous sûr de vouloir quitter ?")) {
       this.$emit("close-dialog");
     }
   }
 
-  /** */
-  async callResetPlaylist(): Promise<void> {
+  /** Resets the Playlist to its previous saved state */
+  public async reset(): Promise<void> {
     await this.resetPlaylist(this.idPlaylist);
   }
 
-  /** */
-  async callSavePlaylist(): Promise<void> {
+  /** Saves the modification done to the Playlist */
+  public async save(): Promise<void> {
     await this.savePlaylist(this.idPlaylist);
     this.$emit("close-dialog");
   }

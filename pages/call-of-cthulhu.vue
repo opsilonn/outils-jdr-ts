@@ -110,49 +110,49 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
   public fetchAllCompetences!: () => void;
 
   /** */
-  get getTotal(): number {
+  public get getTotal(): number {
     return Object.keys(this.statsDisplayed.caractéristiques).reduce((previous, key) => previous + this.statsDisplayed.caractéristiques[key], 0);
   }
 
   @Watch("statsBase.caractéristiques.constitution", { deep: true })
-  constitutionChanged(): void {
+  public constitutionChanged(): void {
     this.setPV();
   }
   @Watch("statsBase.caractéristiques.dextérité", { deep: true })
-  dexteriteChanged(val: number): void {
+  public dexteriteChanged(val: number): void {
     this.setMouvement();
     const newVal = Math.floor(val / 2);
     this.statsBase.autres.esquive = newVal;
     this.statsDisplayed.autres.esquive = newVal;
   }
   @Watch("statsBase.caractéristiques.force", { deep: true })
-  forceChanged(): void {
+  public forceChanged(): void {
     this.setMouvement();
     this.setCarrure();
     this.setImpact();
   }
   @Watch("statsBase.caractéristiques.pouvoir", { deep: true })
-  pouvoirChanged(val: number): void {
+  public pouvoirChanged(val: number): void {
     this.statsBase.autres.mana = val;
     this.statsBase.autres.sanité = val;
     this.statsDisplayed.autres.mana = val;
     this.statsDisplayed.autres.sanité = val;
   }
   @Watch("statsBase.caractéristiques.taille", { deep: true })
-  tailleChanged(): void {
+  public tailleChanged(): void {
     this.setMouvement();
     this.setPV();
     this.setCarrure();
     this.setImpact();
   }
 
-  async mounted() {
+  public async mounted(): Promise<void> {
     await this.fetchAllCompetences();
     this.resetForm();
   }
 
   /** Resets everything in the form */
-  resetForm(): void {
+  public resetForm(): void {
     this.orientation = this.itemsOrientation[0];
     this.age = this.itemsAge[0];
 
@@ -161,7 +161,7 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
   }
 
   /** Sets the default value for a set of stats */
-  resetStats(): any {
+  private resetStats(): any {
     return {
       caractéristiques: {
         apparence: 50,
@@ -187,7 +187,7 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
   }
 
   /** */
-  applyOrientation(): void {
+  public applyOrientation(): void {
     if (this.orientation === this.itemsOrientation[0]) {
       // Default random
       this.statsBase.caractéristiques.apparence = this.rollDice(3, 6) * 5;
@@ -239,7 +239,7 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
   }
 
   /** */
-  applyAge(): void {
+  public applyAge(): void {
     // We reset the stats
     this.statsDisplayed = this.statsBase;
 
@@ -280,7 +280,7 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
   }
 
   /** */
-  applyCompétences(): void {
+  public applyCompétences(): void {
     // On réinitialise les compétences
     this.compétences = [];
 
@@ -318,7 +318,7 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
   }
 
   /** */
-  setMouvement(): void {
+  public setMouvement(): void {
     this.statsBase.autres.mouvement = 9;
     if (this.statsBase.caractéristiques.force > this.statsBase.caractéristiques.taille) {
       this.statsBase.autres.mouvement--;
@@ -329,13 +329,13 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
   }
 
   /** */
-  setPV(): void {
+  public setPV(): void {
     this.statsBase.autres.pv = Math.floor((this.statsBase.caractéristiques.constitution + this.statsBase.caractéristiques.taille) / 10);
     this.statsBase.autres.pv = this.statsDisplayed.autres.pv;
   }
 
   /** */
-  setCarrure(): void {
+  public setCarrure(): void {
     const total = this.statsBase.caractéristiques.force + this.statsBase.caractéristiques.taille;
     const carrure = 2 <= total && total <= 64 ? -2 : 65 <= total && total <= 84 ? -1 : 85 <= total && total <= 124 ? 0 : 125 <= total && total <= 164 ? 1 : 2;
 
@@ -344,7 +344,7 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
   }
 
   /** */
-  setImpact(): void {
+  public setImpact(): void {
     const total = this.statsBase.caractéristiques.force + this.statsBase.caractéristiques.taille;
     const impact = 2 <= total && total <= 64 ? -2 : 65 <= total && total <= 84 ? -1 : 85 <= total && total <= 124 ? 0 : 125 <= total && total <= 164 ? "1D4" : "1D6";
 
@@ -353,7 +353,7 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
   }
 
   /** */
-  textExpérience(cpt: number): void {
+  private textExpérience(cpt: number): void {
     for (let i = 0; i < cpt; i++) {
       if (this.rollDice(1, 100) > this.statsDisplayed.caractéristiques.éducation) {
         this.statsDisplayed.caractéristiques.éducation += this.rollDice(1, 10);
@@ -361,11 +361,11 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
     }
   }
 
-  shuffleArray(arr: unknown[]) {
+ private shuffleArray(arr: unknown[]): any[] {
     return JSON.parse(JSON.stringify(arr)).sort(() => Math.random() - 0.5);
   }
 
-  head() {
+  public head(): { title: string } {
     return { title: "L'appel de Cthulhu" };
   }
 }

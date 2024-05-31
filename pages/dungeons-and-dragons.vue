@@ -8,7 +8,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
 @Component({})
 export default class DungeonsAndDragonsPage extends Vue {
 
-  head() {
+  public head(): { title: string } {
     return { title: "D&D" };
   }
 };

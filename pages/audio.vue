@@ -157,13 +157,13 @@ export default class AudioPage extends Vue {
   public SET_AUDIO_DATABASE: (database: AudioItem[]) => void;
 
   /** */
-  get playlistIds(): string[] {
+  public get playlistIds(): string[] {
     return this.playlists.map((playlist: Playlist) => playlist.id);
   }
 
   /** Allows to select the latest playlist if one is added, or deselect if one is deleted */
   @Watch("playlistIds")
-  playlistIdsChanged(newValue: any, oldValue: any): void {
+  public playlistIdsChanged(newValue: any, oldValue: any): void {
       // Must be watched here, since the creation / deletion is done in another component
       if (oldValue.length < newValue.length) {
         // a playlist is added
@@ -174,7 +174,7 @@ export default class AudioPage extends Vue {
       }
   }
 
-  async mounted() {
+  public async mounted(): Promise<void> {
     // We set the tabs
     const tabsCategory: AudioCategory[] = EnumAudioFolder;
     const tabPlaylist: AudioCategory = {
@@ -204,33 +204,32 @@ export default class AudioPage extends Vue {
     this.isPageLoading = false;
   }
 
-
-    /** */
-    openDialogNew(): void {
+    /** Opens the dialog to create a Playlist */
+    public openDialogNew(): void {
       this.currentPlaylistId = "";
       this.dialogPlaylist = true;
     }
 
-    /** */
-    openDialogEdit(event: PointerEvent, id: string): void {
+    /** Opens the dialog to edit an existing Playlist */
+    public openDialogEdit(event: PointerEvent, id: string): void {
       event.stopPropagation();
       this.currentPlaylistId = id;
       this.dialogPlaylist = true;
     }
 
-    /** */
+    /** Opens the dialog to edit the items contained in an existing Playlist */
     openDialogPlaylist(id: string): void {
       this.currentPlaylistId = id;
       this.dialogPlaylistAudio = true;
     }
 
-    /** */
+    /** Closes the dialog to edit the items contained in an existing Playlist */
     closeDialogPlaylist(): void {
       this.dialogPlaylistAudio = false;
     }
 
-    /** */
-    async DnD_movePlaylist(event: any): Promise<void> {
+    /** Moves the position of a Playlist within the list */
+    public async DnD_movePlaylist(event: any): Promise<void> {
       this.playlistListIsReady = false;
       await this.movePlaylist({ oldIndex: event.oldIndex, newIndex: event.newIndex });
       if (this.selectedPlaylistIndex === event.oldIndex) {
@@ -245,16 +244,16 @@ export default class AudioPage extends Vue {
     }
 
   /** Whenever the page is exited : remove all audio tracks */
-  beforeRouteLeave(to: any, from: any, next: any): void {
+  public beforeRouteLeave(to: any, from: any, next: any): void {
     this.stopAllAudioTracks();
     return next();
   }
 
-  head() {
+  public head(): { title: string } {
     return { title: "Audio" };
   }
 
-  transition(to: any, from: any) {
+  public transition(to: any, from: any): string {
     if (!from) {
       return 'slide-left'
     }

@@ -14,7 +14,8 @@
             <v-card-text>
               <div :class="{ 'error--text': tab.hasError }">
                 {{ tab.audio.surname || tab.audio.name || "..." }}
-                <span v-if="tab.audio.surname" class="font-italic" :class="{ 'error--text': tab.hasError }"> ({{ tab.audio.name }}) </span>
+                <span v-if="tab.audio.surname" class="font-italic" :class="{ 'error--text': tab.hasError }"> ({{
+                  tab.audio.name }}) </span>
               </div>
             </v-card-text>
           </v-col>
@@ -25,7 +26,8 @@
               <!-- slider sound -->
               <v-col cols="6">
                 <!-- TO DO : center vertically the slider -->
-                <v-slider v-model="tab.volume" track-color="grey darken-1" step="0.05" min="0" max="1" thumb-label hide-detail />
+                <v-slider v-model="tab.volume" track-color="grey darken-1" step="0.05" min="0" max="1" thumb-label
+                  hide-detail />
               </v-col>
               <v-col cols="6">
                 <!-- button play / pause -->
@@ -68,7 +70,7 @@ export default class FooterAudioComponent extends Vue {
 
   /** */
   public get audioCategoriesVolumes(): { id: number, volume: number }[] {
-    return EnumAudioFolder.map(( category: AudioCategory) => ({
+    return EnumAudioFolder.map((category: AudioCategory) => ({
       id: category.id,
       volume: category.volume,
     }));

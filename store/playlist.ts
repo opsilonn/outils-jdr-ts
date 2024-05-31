@@ -19,7 +19,7 @@ export default class PlaylistStore extends VuexModule {
     total: 0
   };
   database: AudioItem[] = [];
-  
+
   get getPlaylistById(): (id: string) => Playlist {
     return (id: string) => this.playlists.find((playlist: Playlist) => playlist.id === id);
   }
@@ -31,7 +31,7 @@ export default class PlaylistStore extends VuexModule {
   public static FILL_PLAYLIST_ITEMS(database: AudioItem[], items: PlaylistItemBack[]): void {
     items.forEach((item: PlaylistItemBack, i: number) => {
       if (item.idAudio) {
-        const audio = database.find((a: AudioItem) => a.id === items[i].idAudio);     
+        const audio = database.find((a: AudioItem) => a.id === items[i].idAudio);
         items[i] = {
           children: item.children,
           form: null,
@@ -56,7 +56,7 @@ export default class PlaylistStore extends VuexModule {
    * @param {*} playlist
    */
   @Mutation
-   private ADD_PLAYLIST(playlist: Playlist): void {
+  private ADD_PLAYLIST(playlist: Playlist): void {
     const index: number = this.playlists.findIndex((p: Playlist) => p.id === playlist.id);
     if (index < 0) {
       this.playlists.push(playlist);
@@ -105,7 +105,7 @@ export default class PlaylistStore extends VuexModule {
    */
   @Mutation
   RESET_SAVED_PLAYLIST(): void {
-    this.savedPlaylist =  {
+    this.savedPlaylist = {
       id: "",
       name: "",
       rootFolder: [],
@@ -179,7 +179,7 @@ export default class PlaylistStore extends VuexModule {
 
   /** */
   @Action
-  async fetchSavedPlaylist(id : string): Promise<void> {
+  async fetchSavedPlaylist(id: string): Promise<void> {
     const savedPlaylist: Playlist = (await axios.get(`/api/playlist/${id}/saved`)).data;
     PlaylistStore.FILL_PLAYLIST_ITEMS(this.database, savedPlaylist.rootFolder);
     this.context.commit("SET_SAVED_PLAYLIST", savedPlaylist);

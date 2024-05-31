@@ -4,7 +4,8 @@
     <v-dialog v-model="dialog" max-width="500px" @click:outside="closeDialog">
       <v-card>
         <!-- Title -->
-        <v-card-title class="headline primary--text" v-text="isNewPlaylist ? 'Nouvelle playlist' : 'Modification playlist'" />
+        <v-card-title class="headline primary--text"
+          v-text="isNewPlaylist ? 'Nouvelle playlist' : 'Modification playlist'" />
 
         <!-- Content -->
         <v-card-text>
@@ -14,7 +15,8 @@
           <!-- Playlist's name (for verification) -->
           <v-form ref="form" v-model="form" @submit.prevent>
             <v-container>
-              <v-text-field label="Nom de la Playlist" v-model="playlistName" clearable :rules="[rules.required, rules.max50, rules.ascii]" counter="100" type="text" />
+              <v-text-field label="Nom de la Playlist" v-model="playlistName" clearable
+                :rules="[rules.required, rules.max50, rules.ascii]" counter="100" type="text" />
             </v-container>
           </v-form>
         </v-card-text>

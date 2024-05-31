@@ -36,7 +36,8 @@
               <!-- Dynamically create tab view for audio categories -->
               <v-tab-item v-for="(tab, i) in EnumAudioFolder" :key="`tab_item_category${i}`" :transition="false">
                 <v-list>
-                  <TreeviewAudio :audioFolder="getAudioFolderByTitle(tab.title)" :idPlaylist="idPlaylist" :enableDnd="true" :enablePlay="true" />
+                  <TreeviewAudio :audioFolder="getAudioFolderByTitle(tab.title)" :idPlaylist="idPlaylist"
+                    :enableDnd="true" :enablePlay="true" />
                 </v-list>
               </v-tab-item>
             </div>
@@ -60,7 +61,8 @@
 
             <!-- playlist's audios -->
             <div v-else>
-              <TreeviewAudio :audioFolder="savedPlaylist.rootFolder" :idPlaylist="idPlaylist" :enableDnd="true" :enableEdit="true" :enablePlay="true" />
+              <TreeviewAudio :audioFolder="savedPlaylist.rootFolder" :idPlaylist="idPlaylist" :enableDnd="true"
+                :enableEdit="true" :enablePlay="true" />
             </div>
           </div>
         </v-col>
@@ -193,12 +195,14 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
   height: 750px;
   overflow: scroll;
   /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scroll::-webkit-scrollbar {
   display: none;
-}
-</style>
+}</style>
 ~/models/models/playlist-item-back

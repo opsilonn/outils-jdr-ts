@@ -19,7 +19,7 @@ export default class CompetenceStore extends VuexModule {
   get getCompetencesAutre(): Competence[] {
     return this.competences.filter((competence: Competence) => !competence.isCombat && !competence.isSocial)
   }
-  
+
   @Mutation
   addCompetence(competence: Competence): void {
     const index: number = this.competences.findIndex((c: Competence) => c.id === competence.id);
@@ -31,7 +31,7 @@ export default class CompetenceStore extends VuexModule {
     }
   }
 
-  @Action({rawError: true})
+  @Action({ rawError: true })
   async fetchAllCompetences(): Promise<void> {
     const competences: Competence[] = (await axios.get("/api/competences")).data;
     competences.forEach((competence: Competence) => this.context.commit("addCompetence", competence));

@@ -52,7 +52,8 @@
                         </v-list-item-content>
 
                         <v-list-item-action>
-                          <v-icon color="grey lighten-1" v-text="'mdi-dots-vertical'" @click="openDialogEdit($event, playlist.id)" />
+                          <v-icon color="grey lighten-1" v-text="'mdi-dots-vertical'"
+                            @click="openDialogEdit($event, playlist.id)" />
                         </v-list-item-action>
                       </v-list-item>
                     </div>
@@ -68,7 +69,8 @@
             <v-col cols="8" v-if="selectedPlaylistIndex >= 0" class="scroll">
               <!-- Add audios -->
               <center>
-                <v-btn class="ma-4 zoom-sm primary" rounded @click="openDialogPlaylist(playlists[selectedPlaylistIndex].id)">
+                <v-btn class="ma-4 zoom-sm primary" rounded
+                  @click="openDialogPlaylist(playlists[selectedPlaylistIndex].id)">
                   <v-icon left v-text="'mdi-folder-plus'" />
                   Gérer musique
                 </v-btn>
@@ -81,11 +83,8 @@
 
               <!-- playlist's audios -->
               <div v-else>
-                <TreeviewAudio
-                  :audioFolder="playlists[selectedPlaylistIndex].rootFolder"
-                  :idPlaylist="playlists[selectedPlaylistIndex].id"
-                  :enablePlay="true"
-                />
+                <TreeviewAudio :audioFolder="playlists[selectedPlaylistIndex].rootFolder"
+                  :idPlaylist="playlists[selectedPlaylistIndex].id" :enablePlay="true" />
               </div>
             </v-col>
           </v-row>
@@ -96,10 +95,12 @@
       <FooterAudio />
 
       <!-- Dialog to create, update or delete a playlist -->
-      <DialogPlaylistData @close-dialog="dialogPlaylist = false" :dialog="dialogPlaylist" :idPlaylist="currentPlaylistId" />
+      <DialogPlaylistData @close-dialog="dialogPlaylist = false" :dialog="dialogPlaylist"
+        :idPlaylist="currentPlaylistId" />
 
       <!-- Dialog to add or remove audios from a playlist -->
-      <DialogPlaylistContent @close-dialog="closeDialogPlaylist()" :dialog="dialogPlaylistAudio" :idPlaylist="currentPlaylistId" />
+      <DialogPlaylistContent @close-dialog="closeDialogPlaylist()" :dialog="dialogPlaylistAudio"
+        :idPlaylist="currentPlaylistId" />
     </div>
   </div>
 </template>
@@ -164,14 +165,14 @@ export default class AudioPage extends Vue {
   /** Allows to select the latest playlist if one is added, or deselect if one is deleted */
   @Watch("playlistIds")
   public playlistIdsChanged(newValue: any, oldValue: any): void {
-      // Must be watched here, since the creation / deletion is done in another component
-      if (oldValue.length < newValue.length) {
-        // a playlist is added
-        this.selectedPlaylistIndex = this.playlists.length - 1;
-      } else if (oldValue.length > newValue.length) {
-        // a playlist is deleted
-        this.selectedPlaylistIndex = -1;
-      }
+    // Must be watched here, since the creation / deletion is done in another component
+    if (oldValue.length < newValue.length) {
+      // a playlist is added
+      this.selectedPlaylistIndex = this.playlists.length - 1;
+    } else if (oldValue.length > newValue.length) {
+      // a playlist is deleted
+      this.selectedPlaylistIndex = -1;
+    }
   }
 
   public async mounted(): Promise<void> {
@@ -204,44 +205,44 @@ export default class AudioPage extends Vue {
     this.isPageLoading = false;
   }
 
-    /** Opens the dialog to create a Playlist */
-    public openDialogNew(): void {
-      this.currentPlaylistId = "";
-      this.dialogPlaylist = true;
+  /** Opens the dialog to create a Playlist */
+  public openDialogNew(): void {
+    this.currentPlaylistId = "";
+    this.dialogPlaylist = true;
+  }
+
+  /** Opens the dialog to edit an existing Playlist */
+  public openDialogEdit(event: PointerEvent, id: string): void {
+    event.stopPropagation();
+    this.currentPlaylistId = id;
+    this.dialogPlaylist = true;
+  }
+
+  /** Opens the dialog to edit the items contained in an existing Playlist */
+  openDialogPlaylist(id: string): void {
+    this.currentPlaylistId = id;
+    this.dialogPlaylistAudio = true;
+  }
+
+  /** Closes the dialog to edit the items contained in an existing Playlist */
+  closeDialogPlaylist(): void {
+    this.dialogPlaylistAudio = false;
+  }
+
+  /** Moves the position of a Playlist within the list */
+  public async DnD_movePlaylist(event: any): Promise<void> {
+    this.playlistListIsReady = false;
+    await this.movePlaylist({ oldIndex: event.oldIndex, newIndex: event.newIndex });
+    if (this.selectedPlaylistIndex === event.oldIndex) {
+      this.selectedPlaylistIndex = event.newIndex;
     }
 
-    /** Opens the dialog to edit an existing Playlist */
-    public openDialogEdit(event: PointerEvent, id: string): void {
-      event.stopPropagation();
-      this.currentPlaylistId = id;
-      this.dialogPlaylist = true;
-    }
-
-    /** Opens the dialog to edit the items contained in an existing Playlist */
-    openDialogPlaylist(id: string): void {
-      this.currentPlaylistId = id;
-      this.dialogPlaylistAudio = true;
-    }
-
-    /** Closes the dialog to edit the items contained in an existing Playlist */
-    closeDialogPlaylist(): void {
-      this.dialogPlaylistAudio = false;
-    }
-
-    /** Moves the position of a Playlist within the list */
-    public async DnD_movePlaylist(event: any): Promise<void> {
-      this.playlistListIsReady = false;
-      await this.movePlaylist({ oldIndex: event.oldIndex, newIndex: event.newIndex });
-      if (this.selectedPlaylistIndex === event.oldIndex) {
-        this.selectedPlaylistIndex = event.newIndex;
-      }
-
-      // Why this stupid code ?
-      // When you DnD a playlist in the list, the v-list-group doesn't register the changes, 
-      // And the playlist that was First before, is still considered First after, even if it was moved elsewhere
-      // TL&DR : I didn't find a way to solve the issue
-      this.playlistListIsReady = true;
-    }
+    // Why this stupid code ?
+    // When you DnD a playlist in the list, the v-list-group doesn't register the changes, 
+    // And the playlist that was First before, is still considered First after, even if it was moved elsewhere
+    // TL&DR : I didn't find a way to solve the issue
+    this.playlistListIsReady = true;
+  }
 
   /** Whenever the page is exited : remove all audio tracks */
   public beforeRouteLeave(to: any, from: any, next: any): void {
@@ -267,11 +268,13 @@ export default class AudioPage extends Vue {
   height: 750px;
   overflow: scroll;
   /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scroll::-webkit-scrollbar {
   display: none;
-}
-</style>
+}</style>

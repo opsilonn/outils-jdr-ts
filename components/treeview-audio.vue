@@ -10,20 +10,15 @@
 
       <!-- Label (either text OR input-field)-->
       <template v-slot:label="{ item }">
-        <draggable
-          :class="{
-            playlist: enableDnd && enableEdit,
-            database: enableDnd && !enableEdit,
-          }"
-          :list="[]"
-          :group="enableDnd ? 'node' : ''"
-          :id="!!item.id ? item.id : item.idAudio"
-          @end="endDnD"
-        >
+        <draggable :class="{
+          playlist: enableDnd && enableEdit,
+          database: enableDnd && !enableEdit,
+        }" :list="[]" :group="enableDnd ? 'node' : ''" :id="!!item.id ? item.id : item.idAudio" @end="endDnD">
           <div class="pa-4" @click="onClick(item)">
             <!-- If editing: input-field -->
             <v-form v-if="!!item.isEditing" :ref="`form_playlist_audio_${item.id}`" v-model="item.form" @submit.prevent>
-              <v-text-field v-model="item.surnameEdit" :rules="[rules.max50, rules.ascii]" :label="item.name" counter @click.stop @keyup.enter.stop="editAudioFromPlaylist(item)">
+              <v-text-field v-model="item.surnameEdit" :rules="[rules.max50, rules.ascii]" :label="item.name" counter
+                @click.stop @keyup.enter.stop="editAudioFromPlaylist(item)">
                 <template v-slot:append>
                   <v-fade-transition leave-absolute>
                     <v-icon v-text="'mdi-check'" @click.stop="editAudioFromPlaylist(item)" />
@@ -47,7 +42,8 @@
       <!-- Append icon -->
       <template v-if="enableEdit" v-slot:append="{ item }" @click="onClick(item)">
         <!-- Is editing the name -->
-        <v-icon v-if="item.isEditing" class="zoom" color="grey lighten-1" v-text="'mdi-cancel'" @click.stop="cancelEdit(item)" />
+        <v-icon v-if="item.isEditing" class="zoom" color="grey lighten-1" v-text="'mdi-cancel'"
+          @click.stop="cancelEdit(item)" />
 
         <!-- other actions -->
         <div v-else>
@@ -55,7 +51,8 @@
           <v-icon class="zoom" color="grey lighten-1" v-text="'mdi-pencil'" @click.stop="beginEdit(item)" />
 
           <!-- Remove item -->
-          <v-icon class="zoom" color="grey lighten-1" v-text="'mdi-delete'" @click.stop="tryDeleteFromPlaylist(item.id)" />
+          <v-icon class="zoom" color="grey lighten-1" v-text="'mdi-delete'"
+            @click.stop="tryDeleteFromPlaylist(item.id)" />
         </div>
       </template>
     </v-treeview>

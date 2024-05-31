@@ -67,7 +67,7 @@ export default class FooterAudioComponent extends Vue {
   public setLoop: (id: number) => void;
 
   /** */
-  get audioCategoriesVolumes(): { id: number, volume: number }[] {
+  public get audioCategoriesVolumes(): { id: number, volume: number }[] {
     return EnumAudioFolder.map(( category: AudioCategory) => ({
       id: category.id,
       volume: category.volume,
@@ -76,7 +76,7 @@ export default class FooterAudioComponent extends Vue {
 
   /** */
   @Watch("audioCategoriesVolumes", { deep: true })
-  volumeChanged(newValue: { id: number, volume: number }[], oldValue: { id: number, volume: number }[]): void {
+  public volumeChanged(newValue: { id: number, volume: number }[], oldValue: { id: number, volume: number }[]): void {
     for (let i = 0; i < oldValue.length; i++) {
       if (oldValue[i].volume !== newValue[i].volume) {
         this.setVolume(oldValue[i].id);

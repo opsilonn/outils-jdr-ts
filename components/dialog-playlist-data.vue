@@ -64,15 +64,15 @@ export default class DialogPlaylistDataComponent extends mixins(RulesMixin) {
 
   /** whenever the dialog is opened */
   @Watch("dialog")
-  dialogChanged(): void {
+  public dialogChanged(): void {
     if (this.dialog) {
       this.playlist = this.getPlaylistById(this.idPlaylist);
       this.playlistName = this.playlist?.name || "";
     }
   }
 
-  /** */
-  get isNewPlaylist(): boolean {
+  /** Returns whether the selected Playlist is new, or an existing one */
+  public get isNewPlaylist(): boolean {
     return !this.idPlaylist || this.idPlaylist === "";
   }
 
@@ -81,15 +81,14 @@ export default class DialogPlaylistDataComponent extends mixins(RulesMixin) {
     this.$emit("close-dialog");
   }
 
-  /** */
+  /** Deletes a Playlist, and closes the dialog */
   public async remove(): Promise<void> {
     await this.deletePlaylist(this.idPlaylist);
     this.$emit("close-dialog");
   }
 
-  /** */
+  /** Enable the action dedicated to the Playlist, whether new or existing */
   public async action(): Promise<void> {
-
     if (this.isNewPlaylist) {
       this.add();
     } else {
@@ -97,7 +96,7 @@ export default class DialogPlaylistDataComponent extends mixins(RulesMixin) {
     }
   }
 
-  /** */
+  /** Creates a new Playlist */
   private async add(): Promise<void> {
     const newPlaylist: Playlist = {
       id: "",
@@ -111,7 +110,7 @@ export default class DialogPlaylistDataComponent extends mixins(RulesMixin) {
     }
   }
 
-  /** */
+  /** Updates an existing Playlist */
   private async update(): Promise<void> {
     const editedPlaylist: Playlist = {
       id: this.playlist.id,

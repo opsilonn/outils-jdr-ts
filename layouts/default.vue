@@ -31,16 +31,16 @@ export default class DefaultLayout extends Vue {
   showFooter: boolean = false;
 
   @Watch("$route")
-  onRouteChanged() {
+  public onRouteChanged(): void {
     this.setSourceImage();
   }
 
-  mounted() {
+  public mounted(): void {
     this.setSourceImage();
   }
 
   /** Sets the value of the image to display, if any */
-  setSourceImage(): void {
+  private setSourceImage(): void {
     const navItem: NavItem = EnumRouter.find((item: NavItem) => item.route === this.$route.path);
     this.src = navItem?.src || this.srcDefault;
   }

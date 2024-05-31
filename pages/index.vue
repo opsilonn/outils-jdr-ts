@@ -22,7 +22,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
 export default class DefaultLayout extends Vue {
   EnumRouter = EnumRouter;
 
-  head() {
+  public head(): { title: string } {
     return { title: "index" };
   }
 };

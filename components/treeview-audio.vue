@@ -101,7 +101,7 @@ export default class TreeviewAudioComponent extends mixins(PlaylistItemMixin, Ru
   public setAudio: (audio: AudioItem) => void;
 
   /** */
-  getItemIcon(item: PlaylistItemFront, isOpen: boolean): string {
+  public getItemIcon(item: PlaylistItemFront, isOpen: boolean): string {
     if (this.isFolder(item)) {
       return isOpen
         ? "mdi-folder-open"
@@ -115,27 +115,27 @@ export default class TreeviewAudioComponent extends mixins(PlaylistItemMixin, Ru
     return category.icon;
   }
 
-  /** */
-  onClick(item: PlaylistItemFront): void {
+  /** Enables the audio file to play, if allowed to */
+  public onClick(item: PlaylistItemFront): void {
     if (this.isFile(item) && this.enablePlay && !item.isEditing) {
       this.setAudio(item);
     }
   }
 
-  /** */
-  beginEdit(file: PlaylistItemFront): void {
+  /** Begins the modification of an Item */
+  public beginEdit(file: PlaylistItemFront): void {
     file.isEditing = true;
     file.form = false;
     file.surnameEdit = file.surname || "";
   }
 
-  /** */
-  cancelEdit(file: PlaylistItemFront): void {
+  /** Ends the modification of an Item */
+  public cancelEdit(file: PlaylistItemFront): void {
     file.isEditing = false;
   }
 
-  /** */
-  async editAudioFromPlaylist(file: PlaylistItemFront): Promise<void> {
+  /** Sends an Item's new data */
+  public async editAudioFromPlaylist(file: PlaylistItemFront): Promise<void> {
     const formId: string = `form_playlist_audio_${file.id}`;
     const form: any = this.$refs[formId];
 

@@ -75,8 +75,8 @@
 
 <script lang="ts">
 import { Component, mixins, namespace, Watch } from "nuxt-property-decorator";
-import DiceMixin from "~/mixins/dice";
-import RulesMixin from "~/mixins/rules";
+import DiceMixin from "~/mixins/dice-mixin";
+import RulesMixin from "~/mixins/rules-mixin";
 import Competence from "~/models/models/competence";
 const competences = namespace("competences");
 

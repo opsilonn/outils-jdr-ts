@@ -74,7 +74,7 @@ import { Component, Prop, Watch, mixins, namespace } from "nuxt-property-decorat
 import draggable from "vuedraggable";
 import EventBus from "~/EventBus";
 import TreeviewAudioComponent from "~/components/treeview-audio.vue";
-import AudioMixin from "~/mixins/audio";
+import AudioMixin from "~/mixins/audio-mixin";
 import EnumAudioFolder from "~/models/enums/EnumAudioFolder";
 import AudioItem from "~/models/models/audio-item";
 import Playlist from "~/models/models/playlist";

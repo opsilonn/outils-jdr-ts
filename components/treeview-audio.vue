@@ -69,8 +69,8 @@
 import { Component, Prop, mixins, namespace } from "nuxt-property-decorator";
 import draggable from "vuedraggable";
 import EventBus from "~/EventBus";
-import PlaylistItemMixin from "~/mixins/playlist-item";
-import RulesMixin from "~/mixins/rules";
+import PlaylistItemMixin from "~/mixins/playlist-item-mixin";
+import RulesMixin from "~/mixins/rules-mixin";
 import EnumAudioFolder from "~/models/enums/EnumAudioFolder";
 import AudioCategory from "~/models/models/audio-category";
 import AudioItem from "~/models/models/audio-item";

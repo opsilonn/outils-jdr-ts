@@ -264,7 +264,7 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
       this.statsDisplayed.autres.chance = Math.max(this.statsBase.autres.chance, this.rollDice(1, 100));
     } else {
       // Test(s) d'expérience, compris entre 1 et 4
-      this.textExpérience(Math.min(index, 4));
+      this.testExpérience(Math.min(index, 4));
 
       // For index strictly above 1 : lower some stats
       if (index > 1) {
@@ -356,7 +356,7 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
   }
 
   /** */
-  private textExpérience(cpt: number): void {
+  private testExpérience(cpt: number): void {
     for (let i = 0; i < cpt; i++) {
       if (this.rollDice(1, 100) > this.statsDisplayed.caractéristiques.éducation) {
         this.statsDisplayed.caractéristiques.éducation += this.rollDice(1, 10);

@@ -39,7 +39,7 @@
 
 <script lang="ts">
 import { Component, Prop, Watch, mixins, namespace } from "nuxt-property-decorator";
-import RulesMixin from "~/mixins/rules";
+import RulesMixin from "~/mixins/rules-mixin";
 import Playlist from "~/models/models/playlist";
 const playlist = namespace("playlist");
 

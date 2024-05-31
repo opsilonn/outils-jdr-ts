@@ -136,26 +136,28 @@ export default class TreeviewAudioComponent extends mixins(PlaylistItemMixin, Ru
     const formId: string = `form_playlist_audio_${file.id}`;
     const form: any = this.$refs[formId];
 
-    if (form.validate()) {
-      // if the name doesn't change, no call is made
-      if (file.surname !== file.surnameEdit) {
-        const data: { idPlaylist: string; playlistItem: PlaylistItemBack } = {
-          idPlaylist: this.idPlaylist,
-          playlistItem: {
-            children: [],
-            id: file.id,
-            idAudio: file.idAudio,
-            name: "",
-            path: "",
-            surname: file.surnameEdit
-          },
-        };
-        await this.updatePlaylistAudio(data);
-      }
-
-      file.isEditing = false;
-      file.surname = file.surnameEdit;
+    if (!form.validate()) {
+      return;
     }
+
+    // if the name doesn't change, no call is made
+    if (file.surname !== file.surnameEdit) {
+      const data: { idPlaylist: string; playlistItem: PlaylistItemBack } = {
+        idPlaylist: this.idPlaylist,
+        playlistItem: {
+          children: [],
+          id: file.id,
+          idAudio: file.idAudio,
+          name: "",
+          path: "",
+          surname: file.surnameEdit
+        },
+      };
+      await this.updatePlaylistAudio(data);
+    }
+
+    file.isEditing = false;
+    file.surname = file.surnameEdit;
   }
 
   /** */

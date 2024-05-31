@@ -48,7 +48,7 @@ export default class PlaylistCRUD {
   /**
    * @returns {Promise<Playlist[]>}
    */
-  public static async getAll(path: string = PATH_FILE):Promise<Playlist[]> {
+  public static async getAll(path: string = PATH_FILE): Promise<Playlist[]> {
     if (!fs.existsSync(path)) {
       writeFile(path, JSON.stringify([], null, 2), "utf8");
       return [];
@@ -151,7 +151,7 @@ export default class PlaylistCRUD {
   public static async addPlaylistItem(idPlaylist: string, audioItem: AudioItem, idFolder: string, index: number) {
     let playlistsSaved: Playlist[] = await this.getAll(PATH_FILE_SAVE);
     let playlist: Playlist = playlistsSaved.find((p: Playlist) => p.id === idPlaylist);
-    
+
     // If not found : We get the source one, from the "actual" database
     if (!playlist) {
       playlist = await this.get(idPlaylist);
@@ -193,7 +193,7 @@ export default class PlaylistCRUD {
 
       playlist.rootFolder.splice(index, 0, newAudio);
     }
-    
+
     playlist.total += 1;
 
     writeFile(PATH_FILE_SAVE, JSON.stringify(playlistsSaved, null, 2), "utf8");
@@ -276,7 +276,7 @@ export default class PlaylistCRUD {
    */
   public static async movePlaylistItem(idPlaylist: string, idItem: string, idFolderToMoveTo: string, newIndex: number): Promise<Playlist> {
     let playlists: Playlist[] = await this.getAll(PATH_FILE_SAVE);
-    let playlist: Playlist= playlists.find((p: Playlist) => p.id === idPlaylist);
+    let playlist: Playlist = playlists.find((p: Playlist) => p.id === idPlaylist);
 
     // If not found : We get the source one, from the "actual" database
     if (!playlist) {
@@ -368,7 +368,7 @@ export default class PlaylistCRUD {
       if (!!returnedItem) {
         return returnedItem;
       }
-  }
+    }
   }
 
   /**

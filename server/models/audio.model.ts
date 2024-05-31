@@ -8,14 +8,14 @@ const AUDIO_FOLDER_PATH = "./static/audio";
 
 export default class AudioCRUD {
 
-  static audiosDatabase: AudioItem[]= [];
+  static audiosDatabase: AudioItem[] = [];
 
   /**
    * @returns {Promise<[]>}
    */
   public static async getAll(): Promise<{ audioFolder: PlaylistItemBack[], audiosDatabase: AudioItem[] }> {
     this.audiosDatabase = [];
-    
+
     const audioFolder: PlaylistItemBack[] = await this.readFolder(AUDIO_FOLDER_PATH);
 
     return {

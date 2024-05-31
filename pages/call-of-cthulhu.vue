@@ -23,7 +23,8 @@
       <!-- col n° 1 - GUI -->
       <v-col class="pa-4" sm="12" md="4">
         <!-- Orientation -->
-        <v-select class="pa-8" v-model="orientation" :items="itemsOrientation" label="Orientation" @change="applyOrientation()" />
+        <v-select class="pa-8" v-model="orientation" :items="itemsOrientation" label="Orientation"
+          @change="applyOrientation()" />
 
         <!-- Âge -->
         <v-select class="pa-8" v-model="age" :items="itemsAge" label="Âge" @change="applyAge()" />
@@ -36,7 +37,8 @@
         <!-- Caractéristiques -->
         <v-row>
           <v-col cols="6" v-for="(item, index) in Object.keys(statsDisplayed.caractéristiques)" :key="index">
-            <v-text-field v-model.number="statsDisplayed.caractéristiques[item]" :label="item" onkeypress="return event.charCode >= 48" readonly />
+            <v-text-field v-model.number="statsDisplayed.caractéristiques[item]" :label="item"
+              onkeypress="return event.charCode >= 48" readonly />
           </v-col>
         </v-row>
 
@@ -47,7 +49,8 @@
         <!-- autres -->
         <v-row>
           <v-col cols="3" v-for="(item, index) in Object.keys(statsDisplayed.autres)" :key="index">
-            <v-text-field v-model="statsDisplayed.autres[item]" :label="item" onkeypress="return event.charCode >= 48" readonly />
+            <v-text-field v-model="statsDisplayed.autres[item]" :label="item" onkeypress="return event.charCode >= 48"
+              readonly />
           </v-col>
         </v-row>
       </v-col>
@@ -361,7 +364,7 @@ export default class CallOfCthulhuPage extends mixins(DiceMixin, RulesMixin) {
     }
   }
 
- private shuffleArray(arr: unknown[]): any[] {
+  private shuffleArray(arr: unknown[]): any[] {
     return JSON.parse(JSON.stringify(arr)).sort(() => Math.random() - 0.5);
   }
 

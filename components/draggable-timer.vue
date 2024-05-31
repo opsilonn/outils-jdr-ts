@@ -13,14 +13,9 @@
         <v-col class="text-left">
           <span class="text-h5 font-weight-light"> {{ displayedCpt }} </span>
           <v-fade-transition>
-            <v-avatar
-              v-if="isPlaying"
-              :style="{
-                animationDuration: '1s',
-              }"
-              class="mb-1 primary v-avatar--metronome"
-              size="12"
-            ></v-avatar>
+            <v-avatar v-if="isPlaying" :style="{
+              animationDuration: '1s',
+            }" class="mb-1 primary v-avatar--metronome" size="12"></v-avatar>
           </v-fade-transition>
         </v-col>
 

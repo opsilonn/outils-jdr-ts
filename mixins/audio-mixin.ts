@@ -10,7 +10,7 @@ export default class AudioMixin extends Vue {
    * @param items 
    * @returns 
    */
-   public getPlaylistItem(id: string, items: PlaylistItemBack[]): PlaylistItemBack {
+  public getPlaylistItem(id: string, items: PlaylistItemBack[]): PlaylistItemBack {
     for (let item of items) {
       if (item.id === id) {
         return item;
@@ -29,7 +29,7 @@ export default class AudioMixin extends Vue {
    * @param items 
    * @returns 
    */
-   public getFolderContainingPlaylistItem(id: string, items: PlaylistItemBack[]): PlaylistItemBack {
+  public getFolderContainingPlaylistItem(id: string, items: PlaylistItemBack[]): PlaylistItemBack {
     for (let item of items) {
       if (!item.children) {
         continue;

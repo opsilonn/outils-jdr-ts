@@ -71,7 +71,7 @@ export default class CompetenceCRUD {
    * @param {number} id
    * @returns {Promise<Competence>}
    */
-  public  static async delete(id: number) {
+  public static async delete(id: number) {
     let competences: Competence[] = await this.getAll();
 
     const index: number = competences.findIndex((competence: Competence) => competence.id === id);

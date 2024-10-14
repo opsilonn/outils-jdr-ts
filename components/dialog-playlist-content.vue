@@ -204,5 +204,6 @@ export default class DialogPlaylistContentComponent extends mixins(AudioMixin) {
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scroll::-webkit-scrollbar {
   display: none;
-}</style>
+}
+</style>
 ~/models/models/playlist-item-back

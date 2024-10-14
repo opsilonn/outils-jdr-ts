@@ -17,7 +17,8 @@
       <!-- Tab view -->
       <v-tabs-items v-model="selectedTabIndex">
         <!-- Dynamically create tab view for audio categories -->
-        <v-tab-item v-for="(tab, i) in EnumAudioFolder" :key="`tab_item_category${i}`" :transition="false" class="scroll">
+        <v-tab-item v-for="(tab, i) in EnumAudioFolder" :key="`tab_item_category${i}`" :transition="false"
+          class="scroll">
           <v-list>
             <TreeviewAudio :audioFolder="getAudioFolderByTitle(tab.title)" :enablePlay="true" />
           </v-list>
@@ -277,4 +278,5 @@ export default class AudioPage extends Vue {
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scroll::-webkit-scrollbar {
   display: none;
-}</style>
+}
+</style>

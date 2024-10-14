@@ -31,9 +31,12 @@ export default class TestPage extends Vue {
   height: 750px;
   overflow: scroll;
   /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scroll::-webkit-scrollbar {
   display: none;

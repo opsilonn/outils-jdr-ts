@@ -25,6 +25,10 @@ module.exports = {
 # Installer les dépendances
 $ npm install
 
+# Un problème pour installer les dépendances ?
+# Utilisez cette version là pour n'avoir strictement que les versions décrites dans le package.lock.json
+$ npm clean-install
+
 # Lancer le projet
 $ npm run dev
 ```
